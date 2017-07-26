@@ -1,0 +1,9 @@
+C:\Documents and Settings\jfolleso\My Documents\Visual Studio 2005\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Debug\HelpDeskClient.exe
+C:\Documents and Settings\jfolleso\My Documents\Visual Studio 2005\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Debug\HelpDeskClient.pdb
+C:\Documents and Settings\jfolleso\My Documents\Visual Studio 2005\Projects\ProtocolHandlerDemo\HelpdeskClient\bin\Debug\HelpDeskClient.exe
+C:\Documents and Settings\jfolleso\My Documents\Visual Studio 2005\Projects\ProtocolHandlerDemo\HelpdeskClient\bin\Debug\HelpDeskClient.pdb
+C:\Documents and Settings\jfolleso\My Documents\Visual Studio 2005\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\jfolleso\My Documents\Visual Studio 2005\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Debug\HelpDeskClient.MainForm.resources
+C:\Documents and Settings\jfolleso\My Documents\Visual Studio 2005\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Debug\HelpDeskClient.Properties.Resources.resources
+C:\Documents and Settings\jfolleso\My Documents\Visual Studio 2005\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Debug\HelpDeskClient.RequestForm.resources
+C:\Documents and Settings\jfolleso\My Documents\Visual Studio 2005\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Debug\HelpDeskClient.csproj.GenerateResource.Cache

@@ -1,0 +1,10 @@
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\ProtocolHandlerDemo\HelpdeskClient\bin\Release\HelpDeskClient.exe.config
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\ProtocolHandlerDemo\HelpdeskClient\bin\Release\HelpDeskClient.exe
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\ProtocolHandlerDemo\HelpdeskClient\bin\Release\HelpDeskClient.pdb
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Release\HelpDeskClient.csprojResolveAssemblyReference.cache
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Release\vaConnect.MainForm.resources
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Release\HelpDeskClient.Properties.Resources.resources
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Release\vaConnect.RequestForm.resources
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Release\HelpDeskClient.csproj.GenerateResource.Cache
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Release\HelpDeskClient.exe
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\ProtocolHandlerDemo\HelpdeskClient\obj\Release\HelpDeskClient.pdb

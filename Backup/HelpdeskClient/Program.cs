@@ -28,7 +28,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using Microsoft.VisualBasic.ApplicationServices;
 
-namespace vaConnect
+namespace HelpDeskClient
 {
     /// <summary>
     /// The Main class of the application.

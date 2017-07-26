@@ -24,43 +24,44 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
-using System.Windows.Forms;
 using System.Collections.Generic;
-using Microsoft.VisualBasic.ApplicationServices;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
 
 namespace vaConnect
 {
     /// <summary>
-    /// The Main class of the application.
+    /// Simple form used to update a HelpDesk Request.
     /// </summary>
-    static class Program
+    public partial class RequestForm : Form
     {
-        // Private members
-        private static MainForm mainForm;
+        private HelpDeskRequest request;
 
         /// <summary>
-        /// The main entry point for the application.
+        /// Default constructor. Creates the RequestForm and loads it with
+        /// a HelpDeskRequest object.
         /// </summary>
-        [STAThread]
-        static void Main()
+        /// <param name="request">The request you wan't to load.</param>
+        public RequestForm(HelpDeskRequest request)
         {
-            //Creates a new SingleInstanceApplication (from the VB Namespace)
-            SingleInstanceApplication app = new SingleInstanceApplication();
-            app.StartupNextInstance += new StartupNextInstanceEventHandler(app_StartupNextInstance);
-
-            //Creates the MainForm and loads the application.
-            mainForm = new MainForm();
-            app.Run(mainForm);
+            InitializeComponent();
+            this.request = request;
+            this.txtSubject.Text = request.Subject;
+            this.lblDate.Text = request.Date.ToString();
+            this.chkDone.Checked = request.Closed;
         }
 
         /// <summary>
-        /// Method executed if the application is allready running.
+        /// When the user clicks the OK button to close the dialog.
         /// </summary>
-        static void app_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
+        private void btnOK_Click(object sender, EventArgs e)
         {
-            //Tels the loaded main form to parse the command line arguments.
-            List<string> list = new List<string>(e.CommandLine);
-            mainForm.ParseCommandLine(list.ToArray());
+            request.Closed = chkDone.Checked;
+            request.Subject = this.txtSubject.Text;
+            Close();
         }
     }
 }

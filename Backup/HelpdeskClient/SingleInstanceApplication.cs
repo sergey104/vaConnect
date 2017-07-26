@@ -24,43 +24,43 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using System.Text;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using Microsoft.VisualBasic.ApplicationServices;
+using System.Collections.ObjectModel;
 
-namespace vaConnect
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Collections;
+
+namespace HelpDeskClient
 {
     /// <summary>
-    /// The Main class of the application.
+    /// A SingleInstanceApplication extending the application base. Part of the VB namespaces.
     /// </summary>
-    static class Program
+    public class SingleInstanceApplication : WindowsFormsApplicationBase
     {
-        // Private members
-        private static MainForm mainForm;
-
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        public SingleInstanceApplication(AuthenticationMode mode) : base(mode)
         {
-            //Creates a new SingleInstanceApplication (from the VB Namespace)
-            SingleInstanceApplication app = new SingleInstanceApplication();
-            app.StartupNextInstance += new StartupNextInstanceEventHandler(app_StartupNextInstance);
-
-            //Creates the MainForm and loads the application.
-            mainForm = new MainForm();
-            app.Run(mainForm);
+            InitializeAppProperties();
         }
 
-        /// <summary>
-        /// Method executed if the application is allready running.
-        /// </summary>
-        static void app_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
+        public SingleInstanceApplication()
         {
-            //Tels the loaded main form to parse the command line arguments.
-            List<string> list = new List<string>(e.CommandLine);
+            InitializeAppProperties();
+        }
+
+        protected virtual void InitializeAppProperties()
+        {
+            this.IsSingleInstance = true;
+            this.EnableVisualStyles = true;
+        }
+
+        public virtual void Run(MainForm mainForm)
+        {
+            List<string> list = new List<string>(this.CommandLineArgs);
             mainForm.ParseCommandLine(list.ToArray());
+            this.MainForm = mainForm;
+            this.Run(list.ToArray());            
         }
     }
 }

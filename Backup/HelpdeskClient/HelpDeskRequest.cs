@@ -24,43 +24,58 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
-using System.Windows.Forms;
 using System.Collections.Generic;
-using Microsoft.VisualBasic.ApplicationServices;
+using System.Text;
 
-namespace vaConnect
+namespace HelpDeskClient
 {
     /// <summary>
-    /// The Main class of the application.
+    /// Simple class representing a HelpDesk Request.
     /// </summary>
-    static class Program
+    public class HelpDeskRequest
     {
-        // Private members
-        private static MainForm mainForm;
+        private int id;
 
         /// <summary>
-        /// The main entry point for the application.
+        /// The ID of the request.
         /// </summary>
-        [STAThread]
-        static void Main()
+        public int ID
         {
-            //Creates a new SingleInstanceApplication (from the VB Namespace)
-            SingleInstanceApplication app = new SingleInstanceApplication();
-            app.StartupNextInstance += new StartupNextInstanceEventHandler(app_StartupNextInstance);
-
-            //Creates the MainForm and loads the application.
-            mainForm = new MainForm();
-            app.Run(mainForm);
+            get { return id; }
+            set { id = value; }
         }
+	
+        private string subject;
 
         /// <summary>
-        /// Method executed if the application is allready running.
+        /// The Subject of the request.
         /// </summary>
-        static void app_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
+        public string Subject
         {
-            //Tels the loaded main form to parse the command line arguments.
-            List<string> list = new List<string>(e.CommandLine);
-            mainForm.ParseCommandLine(list.ToArray());
+            get { return subject; }
+            set { subject = value; }
         }
+
+        private bool closed;
+
+        /// <summary>
+        /// The status of the request.
+        /// </summary>
+        public bool Closed
+        {
+            get { return closed; }
+            set { closed = value; }
+        }
+
+        private DateTime date;
+
+        /// <summary>
+        /// The time stamp of the request.
+        /// </summary>
+        public DateTime Date
+        {
+            get { return date; }
+            set { date = value; }
+        }	
     }
 }

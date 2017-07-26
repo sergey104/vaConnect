@@ -24,43 +24,41 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
-using System.Windows.Forms;
 using System.Collections.Generic;
-using Microsoft.VisualBasic.ApplicationServices;
+using System.Text;
 
 namespace vaConnect
 {
     /// <summary>
-    /// The Main class of the application.
+    /// Simple class used to provide some basic sample data to the application.
     /// </summary>
-    static class Program
+    public class BusinessLogic
     {
-        // Private members
-        private static MainForm mainForm;
+        private List<HelpDeskRequest> requests;
 
         /// <summary>
-        /// The main entry point for the application.
+        /// A collection of HelpDeskRequests.
         /// </summary>
-        [STAThread]
-        static void Main()
+        public List<HelpDeskRequest> RequestDatabase
         {
-            //Creates a new SingleInstanceApplication (from the VB Namespace)
-            SingleInstanceApplication app = new SingleInstanceApplication();
-            app.StartupNextInstance += new StartupNextInstanceEventHandler(app_StartupNextInstance);
-
-            //Creates the MainForm and loads the application.
-            mainForm = new MainForm();
-            app.Run(mainForm);
+            get { return requests; }
         }
 
         /// <summary>
-        /// Method executed if the application is allready running.
+        /// Default constructor. Creates a list of 10 HelpDesk Requests.
         /// </summary>
-        static void app_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
+        public BusinessLogic()
         {
-            //Tels the loaded main form to parse the command line arguments.
-            List<string> list = new List<string>(e.CommandLine);
-            mainForm.ParseCommandLine(list.ToArray());
+            requests = new List<HelpDeskRequest>();
+            for (int i = 0; i < 10; ++i)
+            {
+                HelpDeskRequest request = new HelpDeskRequest();
+                request.ID = (10 - i);
+                request.Subject = "Help Desk Request #" + (10 - i).ToString();
+                request.Date = DateTime.Now.Subtract(new TimeSpan(i, 0, 0));
+                request.Closed = false;
+                requests.Add(request);
+            }
         }
     }
 }
