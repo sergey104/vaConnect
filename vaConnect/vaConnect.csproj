@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistryCode.cs" />
     <Compile Include="rest\model\WiFiConfiguration.cs" />
     <Compile Include="rest\model\WiFiProfile.cs" />
     <Compile Include="rest\OnboardingService.cs" />
