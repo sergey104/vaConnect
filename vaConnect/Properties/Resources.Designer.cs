@@ -131,5 +131,15 @@ namespace vaConnect.Properties {
                 return ResourceManager.GetString("EapTTLSy", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fon_logo {
+            get {
+                object obj = ResourceManager.GetObject("fon_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
