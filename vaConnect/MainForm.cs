@@ -268,7 +268,7 @@ namespace vaConnect
         }
 
         /// <summary>
-        /// Method executed when the user closes a help desk request form. 
+        /// Method executed when the user closes a  request form. 
         /// Updates the list of active requests.
         /// </summary>
         void requestForm_FormClosed(object sender, FormClosedEventArgs e)

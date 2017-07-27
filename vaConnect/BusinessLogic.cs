@@ -54,7 +54,7 @@ namespace vaConnect
             {
                 VaConnectRequest request = new VaConnectRequest();
                 request.ID = (10 - i);
-                request.Subject = "Help Desk Request #" + (10 - i).ToString();
+                request.Subject = "VaConnect Request #" + (10 - i).ToString();
                 request.Date = DateTime.Now.Subtract(new TimeSpan(i, 0, 0));
                 request.Closed = false;
                 requests.Add(request);

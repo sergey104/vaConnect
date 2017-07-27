@@ -1,4 +1,6 @@
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\vaConnect.exe.config
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\vaConnect.exe.manifest
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\vaConnect.application
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\vaConnect.exe
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\vaConnect.pdb
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\Newtonsoft.Json.dll
@@ -7,5 +9,7 @@ D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.Properties.Resources.resources
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.RequestForm.resources
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.csproj.GenerateResource.Cache
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.exe.manifest
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.application
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.exe
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.pdb
