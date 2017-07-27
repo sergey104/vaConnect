@@ -34,18 +34,18 @@ using System.Windows.Forms;
 namespace vaConnect
 {
     /// <summary>
-    /// Simple form used to update a HelpDesk Request.
+    /// Simple form used to update a VaConnect Request.
     /// </summary>
     public partial class RequestForm : Form
     {
-        private HelpDeskRequest request;
+        private VaConnectRequest request;
 
         /// <summary>
         /// Default constructor. Creates the RequestForm and loads it with
-        /// a HelpDeskRequest object.
+        /// a VaConnectRequest object.
         /// </summary>
         /// <param name="request">The request you wan't to load.</param>
-        public RequestForm(HelpDeskRequest request)
+        public RequestForm(VaConnectRequest request)
         {
             InitializeComponent();
             this.request = request;

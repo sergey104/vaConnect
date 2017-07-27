@@ -65,7 +65,7 @@ namespace vaConnect
             httpThread.Start();
             UpdateRequestList();
 
-            installProtocolHandler.Enabled = (Registry.ClassesRoot.OpenSubKey("HelpDesk") == null);
+            installProtocolHandler.Enabled = (Registry.ClassesRoot.OpenSubKey("VaConnect") == null);
             removeProtocolHandler.Enabled = !installProtocolHandler.Enabled;
         }
 
@@ -87,13 +87,13 @@ namespace vaConnect
         }
 
         /// <summary>
-        /// Updates the list of HelpDesk Requests.
+        /// Updates the list of VaConnect Requests.
         /// </summary>
         private void UpdateRequestList()
         {
             requestList.BeginUpdate();
             requestList.Items.Clear();
-            foreach (HelpDeskRequest request in logic.RequestDatabase)
+            foreach (VaConnectRequest request in logic.RequestDatabase)
             {
                 ListViewItem item = new ListViewItem(new string[] {
                         request.ID.ToString(),
@@ -138,17 +138,17 @@ namespace vaConnect
                             xmlWriter.WriteStartElement("rss");
                             xmlWriter.WriteAttributeString("version", "2.0");
                             xmlWriter.WriteStartElement("channel");
-                            xmlWriter.WriteElementString("title", "HelpDesk Application - Open Requests");
-                            xmlWriter.WriteElementString("description", "An RSS feed of open HelpDesk Requests. Can be used by gadgets, feed readers etc.");
+                            xmlWriter.WriteElementString("title", "VaConnect Application - Open Requests");
+                            xmlWriter.WriteElementString("description", "An RSS feed of open VaConnect Requests. Can be used by gadgets, feed readers etc.");
                             xmlWriter.WriteElementString("link", "http://localhost:8080/taskhtml/");
-                            foreach (HelpDeskRequest hr in logic.RequestDatabase)
+                            foreach (VaConnectRequest hr in logic.RequestDatabase)
                             {
                                 if (!hr.Closed)
                                 {
                                     xmlWriter.WriteStartElement("item");
                                     xmlWriter.WriteElementString("guid", hr.ID.ToString());
                                     xmlWriter.WriteElementString("title", hr.Subject);
-                                    xmlWriter.WriteElementString("link", "helpdesk://open?id=" + hr.ID.ToString());
+                                    xmlWriter.WriteElementString("link", "vaconnect://open?id=" + hr.ID.ToString());
                                     xmlWriter.WriteElementString("pubDate", hr.Date.ToString("r"));
                                     xmlWriter.WriteEndElement();
                                 }
@@ -164,20 +164,20 @@ namespace vaConnect
                             //Renders the HTML page.
                             context.Response.ContentType = "text/html";
                             StringBuilder sb = new StringBuilder();
-                            sb.Append("<html><head><title>HelpDesk Application</title>");
-                            sb.Append("<link rel='alternate' type='application/rss+xml' title='HelpDesk Request Feed' href='taskfeed' />");
+                            sb.Append("<html><head><title>VaConnect Application</title>");
+                            sb.Append("<link rel='alternate' type='application/rss+xml' title='VaConnect Request Feed' href='taskfeed' />");
                             sb.Append("<style>body { font-family: verdana; }</style></head><body>");
 
-                            sb.Append("<h1 style='color: red;'>Open HelpDesk Requests</h1><ul>");
-                            foreach (HelpDeskRequest openItem in logic.RequestDatabase.FindAll(delegate (HelpDeskRequest hr) { return !hr.Closed; }))
+                            sb.Append("<h1 style='color: red;'>Open VaConnect Requests</h1><ul>");
+                            foreach (VaConnectRequest openItem in logic.RequestDatabase.FindAll(delegate (VaConnectRequest hr) { return !hr.Closed; }))
                             {
-                                sb.Append(string.Format("<li><a href='helpdesk://open?id={0}'>{1}</a></li>", openItem.ID, openItem.Subject));
+                                sb.Append(string.Format("<li><a href=vaconnect://open?id={0}'>{1}</a></li>", openItem.ID, openItem.Subject));
                             }
 
-                            sb.Append("</ul><h1 style='color: green;'>Closed HelpDesk Requests</h1><ul>");
-                            foreach (HelpDeskRequest closedItem in logic.RequestDatabase.FindAll(delegate (HelpDeskRequest hr) { return hr.Closed; }))
+                            sb.Append("</ul><h1 style='color: green;'>Closed VaConnect Requests</h1><ul>");
+                            foreach (VaConnectRequest closedItem in logic.RequestDatabase.FindAll(delegate (VaConnectRequest hr) { return hr.Closed; }))
                             {
-                                sb.Append(string.Format("<li><a href='helpdesk://open?id={0}'>{1}</a></li>", closedItem.ID, closedItem.Subject));
+                                sb.Append(string.Format("<li><a href='vaconnect://open?id={0}'>{1}</a></li>", closedItem.ID, closedItem.Subject));
                             }
                             sb.Append("</ul></body></html>");
 
@@ -214,7 +214,7 @@ namespace vaConnect
                     if (uri.Host.Equals("open"))
                     {
                         int requestID = Convert.ToInt32(parameters["id"]);
-                        HelpDeskRequest request = logic.RequestDatabase.Find(delegate (HelpDeskRequest r) { return (r.ID == requestID); });
+                        VaConnectRequest request = logic.RequestDatabase.Find(delegate (VaConnectRequest r) { return (r.ID == requestID); });
                         if (request != null)
                         {
                             RequestForm requestForm = new RequestForm(request);
@@ -229,24 +229,24 @@ namespace vaConnect
 
         /// <summary>
         /// Method executed when the user double clicks on a list item.
-        /// Opens up the HelpDesk Request Form with the selected item.
+        /// Opens up the VaConnect Request Form with the selected item.
         /// </summary>
         private void requestList_DoubleClick(object sender, EventArgs e)
         {
             if (requestList.SelectedItems.Count == 1)
             {
-                RequestForm requestForm = new RequestForm((HelpDeskRequest)requestList.SelectedItems[0].Tag);
+                RequestForm requestForm = new RequestForm((VaConnectRequest)requestList.SelectedItems[0].Tag);
                 requestForm.FormClosed += new FormClosedEventHandler(requestForm_FormClosed);
                 requestForm.Show();
             }
         }
 
         /// <summary>
-        /// Method executed when the user clicks the button to create a new HelpDesk Request.
+        /// Method executed when the user clicks the button to create a new VaConnect Request.
         /// </summary>
         private void newRequest_Click(object sender, EventArgs e)
         {
-            HelpDeskRequest newItem = new HelpDeskRequest();
+            VaConnectRequest newItem = new VaConnectRequest();
             newItem.Subject = "New Request...";
             newItem.Closed = false;
             newItem.Date = DateTime.Now;
@@ -278,7 +278,7 @@ namespace vaConnect
 
         /// <summary>
         /// Method executed when the user clicks the button to open up the 
-        /// HelpDesk Web Application.
+        /// VaConnect Web Application.
         /// </summary>
         private void showWebButton_Click(object sender, EventArgs e)
         {
@@ -295,7 +295,7 @@ namespace vaConnect
 
         /// <summary>
         /// Method executed when the user clicks the button to register the protocol handler.
-        /// The method writes all registry keys needed to register the helpdesk:// protochol handler.
+        /// The method writes all registry keys needed to register the vaconnect:// protochol handler.
         /// </summary>
         private void installProtocolHandler_Click(object sender, EventArgs e)
         {

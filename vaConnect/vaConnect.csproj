@@ -70,7 +70,7 @@
     <Compile Include="eap\EapPEAP.cs" />
     <Compile Include="eap\EapTLS.cs" />
     <Compile Include="eap\EapTTLS.cs" />
-    <Compile Include="HelpDeskRequest.cs" />
+    <Compile Include="VaConnectRequest.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -34,25 +34,25 @@ namespace vaConnect
     /// </summary>
     public class BusinessLogic
     {
-        private List<HelpDeskRequest> requests;
+        private List<VaConnectRequest> requests;
 
         /// <summary>
-        /// A collection of HelpDeskRequests.
+        /// A collection of VaConnectRequests.
         /// </summary>
-        public List<HelpDeskRequest> RequestDatabase
+        public List<VaConnectRequest> RequestDatabase
         {
             get { return requests; }
         }
 
         /// <summary>
-        /// Default constructor. Creates a list of 10 HelpDesk Requests.
+        /// Default constructor. Creates a list of 10 VaConnect Requests.
         /// </summary>
         public BusinessLogic()
         {
-            requests = new List<HelpDeskRequest>();
+            requests = new List<VaConnectRequest>();
             for (int i = 0; i < 10; ++i)
             {
-                HelpDeskRequest request = new HelpDeskRequest();
+                VaConnectRequest request = new VaConnectRequest();
                 request.ID = (10 - i);
                 request.Subject = "Help Desk Request #" + (10 - i).ToString();
                 request.Date = DateTime.Now.Subtract(new TimeSpan(i, 0, 0));

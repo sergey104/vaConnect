@@ -73,7 +73,7 @@
             this.helpToolStripButton.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.helpToolStripButton.Name = "helpToolStripButton";
             this.helpToolStripButton.Size = new System.Drawing.Size(36, 36);
-            this.helpToolStripButton.Text = "About HelpDesk";
+            this.helpToolStripButton.Text = "About VaConnect";
             this.helpToolStripButton.Click += new System.EventHandler(this.helpToolStripButton_Click);
             // 
             // installProtocolHandler
@@ -141,7 +141,7 @@
             this.showWebButton.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.showWebButton.Name = "showWebButton";
             this.showWebButton.Size = new System.Drawing.Size(36, 36);
-            this.showWebButton.Text = "Open HelpDesk Web Application";
+            this.showWebButton.Text = "Open VaConnect Web Application";
             this.showWebButton.Click += new System.EventHandler(this.showWebButton_Click);
             // 
             // newRequest
@@ -164,7 +164,7 @@
             this.Controls.Add(this.statusStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "HelpDesk Application v1.0";
+            this.Text = "VaConnect Application v1.0";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();

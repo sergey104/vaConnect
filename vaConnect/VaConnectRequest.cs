@@ -30,9 +30,9 @@ using System.Text;
 namespace vaConnect
 {
     /// <summary>
-    /// Simple class representing a HelpDesk Request.
+    /// Simple class representing a VaConnect Request.
     /// </summary>
-    public class HelpDeskRequest
+    public class VaConnectRequest
     {
         private int id;
 
