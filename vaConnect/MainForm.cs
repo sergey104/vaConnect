@@ -299,18 +299,18 @@ namespace vaConnect
         /// </summary>
         private void installProtocolHandler_Click(object sender, EventArgs e)
         {
-            if (Registry.ClassesRoot.OpenSubKey("HelpDesk") == null)
+            if (Registry.ClassesRoot.OpenSubKey("vaConnect") == null)
             {
                 try
                 {
-                    RegistryKey helpDesk = Registry.ClassesRoot.CreateSubKey("HelpDesk");
-                    helpDesk.SetValue("", "URL:HelpDesk Protocol");
-                    helpDesk.SetValue("URL Protocol", "");
+                    RegistryKey vac = Registry.ClassesRoot.CreateSubKey("VaConnect");
+                    vac.SetValue("", "URL:VaConnect Protocol");
+                    vac.SetValue("URL Protocol", "");
 
-                    RegistryKey defaultIcon = helpDesk.CreateSubKey("DefaultIcon");
+                    RegistryKey defaultIcon = vac.CreateSubKey("DefaultIcon");
                     defaultIcon.SetValue("", Path.GetFileName(Application.ExecutablePath));
 
-                    RegistryKey shell = helpDesk.CreateSubKey("shell");
+                    RegistryKey shell = vac.CreateSubKey("shell");
                     RegistryKey open = shell.CreateSubKey("open");
                     RegistryKey command = open.CreateSubKey("command");
                     command.SetValue("", Application.ExecutablePath + " %1");
@@ -335,9 +335,9 @@ namespace vaConnect
         /// </summary>
         private void removeProtocolHandler_Click(object sender, EventArgs e)
         {
-            if (Registry.ClassesRoot.OpenSubKey("HelpDesk") != null)
+            if (Registry.ClassesRoot.OpenSubKey("VaConnect") != null)
             {
-                Registry.ClassesRoot.DeleteSubKeyTree("HelpDesk");
+                Registry.ClassesRoot.DeleteSubKeyTree("VaConnect");
                 removeProtocolHandler.Enabled = false;
                 installProtocolHandler.Enabled = true;
                 MessageBox.Show("Protocol handler removed!", "Removed", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -59,5 +59,77 @@ namespace vaConnect.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
+        ///&lt;WLANProfile xmlns=&quot;http://www.microsoft.com/networking/WLAN/profile/v1&quot;&gt;
+        ///    &lt;name&gt;SampleWPAEnterpriseTLS&lt;/name&gt;
+        ///    &lt;SSIDConfig&gt;
+        ///        &lt;SSID&gt;
+        ///            &lt;name&gt;{0}&lt;/name&gt;
+        ///        &lt;/SSID&gt;
+        ///        &lt;nonBroadcast&gt;false&lt;/nonBroadcast&gt;
+        ///    &lt;/SSIDConfig&gt;
+        ///    &lt;connectionType&gt;ESS&lt;/connectionType&gt;
+        ///    &lt;connectionMode&gt;auto&lt;/connectionMode&gt;
+        ///    &lt;autoSwitch&gt;false&lt;/autoSwitch&gt;
+        ///    &lt;MSM&gt;
+        ///        &lt;security&gt;
+        ///            &lt;authEncryption&gt;
+        ///                &lt;authenticat [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string EapPEAP {
+            get {
+                return ResourceManager.GetString("EapPEAP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
+        ///&lt;WLANProfile xmlns=&quot;http://www.microsoft.com/networking/WLAN/profile/v1&quot;&gt;
+        ///    &lt;name&gt;SampleWPAEnterpriseTLS&lt;/name&gt;
+        ///    &lt;SSIDConfig&gt;
+        ///        &lt;SSID&gt;
+        ///            &lt;name&gt;{0}&lt;/name&gt;
+        ///        &lt;/SSID&gt;
+        ///        &lt;nonBroadcast&gt;false&lt;/nonBroadcast&gt;
+        ///    &lt;/SSIDConfig&gt;
+        ///    &lt;connectionType&gt;ESS&lt;/connectionType&gt;
+        ///    &lt;connectionMode&gt;auto&lt;/connectionMode&gt;
+        ///    &lt;autoSwitch&gt;false&lt;/autoSwitch&gt;
+        ///    &lt;MSM&gt;
+        ///        &lt;security&gt;
+        ///            &lt;authEncryption&gt;
+        ///                &lt;authenticat [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string EapTLS {
+            get {
+                return ResourceManager.GetString("EapTLS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
+        ///&lt;WLANProfile xmlns=&quot;http://www.microsoft.com/networking/WLAN/profile/v1&quot;&gt;
+        ///    &lt;name&gt;SampleWPAEnterpriseTLS&lt;/name&gt;
+        ///    &lt;SSIDConfig&gt;
+        ///        &lt;SSID&gt;
+        ///            &lt;name&gt;{0}&lt;/name&gt;
+        ///        &lt;/SSID&gt;
+        ///        &lt;nonBroadcast&gt;false&lt;/nonBroadcast&gt;
+        ///    &lt;/SSIDConfig&gt;
+        ///    &lt;connectionType&gt;ESS&lt;/connectionType&gt;
+        ///    &lt;connectionMode&gt;auto&lt;/connectionMode&gt;
+        ///    &lt;autoSwitch&gt;false&lt;/autoSwitch&gt;
+        ///    &lt;MSM&gt;
+        ///        &lt;security&gt;
+        ///            &lt;authEncryption&gt;
+        ///                &lt;authenticat [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string EapTTLSy {
+            get {
+                return ResourceManager.GetString("EapTTLSy", resourceCulture);
+            }
+        }
     }
 }

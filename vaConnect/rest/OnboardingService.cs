@@ -7,7 +7,7 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json;
 using System.Threading;
-using NativeWifi;
+
 namespace vaConnect
 {
     class OnboardingService
