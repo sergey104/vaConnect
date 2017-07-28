@@ -38,9 +38,9 @@ namespace vaConnect
         /// </summary>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Thread httpThread = new Thread(new ThreadStart(StartHttpListener));
-            httpThread.IsBackground = true;
-            httpThread.Start();
+          //  Thread httpThread = new Thread(new ThreadStart(StartHttpListener));
+          //  httpThread.IsBackground = true;
+          //  httpThread.Start();
             UpdateRequestList();
 
             installProtocolHandler.Enabled = (Registry.ClassesRoot.OpenSubKey("VaConnect") == null);
@@ -71,7 +71,7 @@ namespace vaConnect
         {
             requestList.BeginUpdate();
             requestList.Items.Clear();
-            foreach (VaConnectRequest request in logic.RequestDatabase)
+        /*    foreach (VaConnectRequest request in logic.RequestDatabase)
             {
                 ListViewItem item = new ListViewItem(new string[] {
                         request.ID.ToString(),
@@ -81,7 +81,7 @@ namespace vaConnect
                 item.Tag = request;
                 item.ForeColor = (request.Closed) ? Color.Green : Color.Red;
                 requestList.Items.Add(item);
-            }
+            } */
             requestList.EndUpdate();
         }
 
