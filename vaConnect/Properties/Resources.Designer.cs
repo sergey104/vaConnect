@@ -141,5 +141,14 @@ namespace vaConnect.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://vmnac-int.fon.com.
+        /// </summary>
+        internal static string UriVAConnect {
+            get {
+                return ResourceManager.GetString("UriVAConnect", resourceCulture);
+            }
+        }
     }
 }

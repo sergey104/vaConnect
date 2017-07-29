@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using Microsoft.Win32;
 using System.Diagnostics;
 
+
 namespace vaConnect
 {
     /// <summary>
@@ -324,6 +325,12 @@ namespace vaConnect
             {
                 MessageBox.Show("Protocol handler not registered!", "Not registered", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String uristr = Properties.Resources.UriVAConnect;
+            System.Diagnostics.Process.Start(uristr);
         }
     }
 }
