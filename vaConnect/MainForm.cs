@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using Microsoft.Win32;
 using System.Diagnostics;
 
-
 namespace vaConnect
 {
     /// <summary>
@@ -85,7 +84,7 @@ namespace vaConnect
             } */
             requestList.EndUpdate();
         }
-
+/*
         /// <summary>
         /// Starts the Http Listener on a background thread.
         /// </summary>
@@ -174,35 +173,58 @@ namespace vaConnect
                 }
             }
         }
-
+*/
         /// <summary>
         /// Executed when the user launches a new instance of the application.
         /// The method parse all the command line arguments.
         /// </summary>
         /// <param name="args"></param>
-        public void ParseCommandLine(string[] args)
+        public async void ParseCommandLine(string[] args)
         {
+
             foreach (string s in args)
             {
+                String token;
+                String identifier;
+                String Ssid;
+                String password;
                 bool valid = Uri.IsWellFormedUriString(s, UriKind.Absolute);
                 if (valid)
                 {
                     Uri uri = new Uri(s);
-                    Dictionary<string, string> parameters = ParseQueryString(uri.Query);
-
-                    if (uri.Host.Equals("open"))
-                    {
-                        int requestID = Convert.ToInt32(parameters["id"]);
-                        VaConnectRequest request = logic.RequestDatabase.Find(delegate (VaConnectRequest r) { return (r.ID == requestID); });
-                        if (request != null)
+                    
+                        Dictionary<string, string> parameters = ParseQueryString(uri.Query);
+                    String S = uri.Host;
+                        if (uri.Host.Equals("onboarding"))
                         {
-                            RequestForm requestForm = new RequestForm(request);
-                            requestForm.FormClosed += new FormClosedEventHandler(requestForm_FormClosed);
-                            requestForm.Shown += new EventHandler(requestForm_Shown);
-                            requestForm.Show();
+                        token = parameters["token"];
+                        identifier = parameters["identifier"];
+                        int numVal = Int32.Parse(identifier);
+                        WiFiProfile z = new WiFiProfile();
+                        try
+                        {
+                            z = await OnboardingService.getInstance().getWiFiProfileAsync(token, identifier);
+                            Ssid = z.getUser_policies().getSsid();
                         }
-                    }
-                }
+                        catch
+                        {
+                            MessageBox.Show("Unable to get WiFi profile data from server");
+                            return;
+
+                        }
+
+                        /*  int requestID = Convert.ToInt32(parameters["id"]);
+                            VaConnectRequest request = logic.RequestDatabase.Find(delegate (VaConnectRequest r) { return (r.ID == requestID); });
+                            if (request != null)
+                            {
+                                RequestForm requestForm = new RequestForm(request);
+                                requestForm.FormClosed += new FormClosedEventHandler(requestForm_FormClosed);
+                                requestForm.Shown += new EventHandler(requestForm_Shown);
+                                requestForm.Show();
+                            } */
+
+                    } 
+                } 
             }
         }
 

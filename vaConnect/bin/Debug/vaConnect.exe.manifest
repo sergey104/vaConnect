@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="vaConnect.exe" size="334808">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="vaConnect.exe" size="332248">
       <assemblyIdentity name="vaConnect" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0eU9v01ngQm4woCoWrqo2MkxylST+MbMgW6fLns4QHM=</dsig:DigestValue>
+        <dsig:DigestValue>+VNa1eetN0ZT15zitZG8Aerqz38FTqsIwWH5/4ZXi+s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
