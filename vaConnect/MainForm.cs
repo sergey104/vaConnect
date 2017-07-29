@@ -14,6 +14,8 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using Microsoft.Win32;
 using System.Diagnostics;
+using NativeWifi;
+using System.Linq;
 
 namespace vaConnect
 {
@@ -212,16 +214,53 @@ namespace vaConnect
                             return;
 
                         }
+                        WiFiConfiguration wc = z.getWifiConfiguration();
+                       
+                        //////////////////////////////////switch
+                        switch(numVal)
+                        {
+                            case 2:
+                                {
+                                    WlanClient client = new WlanClient();
+                                    int k = 1;
+                                    WlanClient.WlanInterface[] wlanIfaces = client.Interfaces;
+                                    foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
+                                    {
 
-                        /*  int requestID = Convert.ToInt32(parameters["id"]);
-                            VaConnectRequest request = logic.RequestDatabase.Find(delegate (VaConnectRequest r) { return (r.ID == requestID); });
-                            if (request != null)
-                            {
-                                RequestForm requestForm = new RequestForm(request);
-                                requestForm.FormClosed += new FormClosedEventHandler(requestForm_FormClosed);
-                                requestForm.Shown += new EventHandler(requestForm_Shown);
-                                requestForm.Show();
-                            } */
+                                        Wlan.WlanAvailableNetwork[] wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
+                                        // var q = ResultCollection.Where(X => X.Ssid == "ALCATEL1").FirstOrDefault();
+                                        var q = wlanBssEntries.Where(X => X.profileName == "ALCATEL1").FirstOrDefault();
+
+
+                                        requestList.Items.Clear();
+                                        foreach (Wlan.WlanAvailableNetwork network in wlanBssEntries)
+                                        {
+                                            
+                                            ListViewItem listItemWiFi = new ListViewItem();
+
+                                            
+                                            listItemWiFi.Text = System.Text.ASCIIEncoding.ASCII.GetString(network.dot11Ssid.SSID).Trim((char)0);
+
+                                            
+                                            
+                                            listItemWiFi.SubItems.Add(network.dot11DefaultAuthAlgorithm.ToString().Trim((char)0)); 
+                                            listItemWiFi.SubItems.Add(network.dot11DefaultCipherAlgorithm.ToString().Trim((char)0)); 
+                                            
+                                            
+                                            requestList.Items.Add(listItemWiFi);
+
+                                        }
+                                        k++;
+                                    }
+                                    break;
+                                }
+                            default:
+                                {
+                                    int i = 0;
+                                    break;
+                                }
+
+                        }
 
                     } 
                 } 
