@@ -162,7 +162,29 @@ namespace vaConnect
                                             }
                                         }
                                         var q = wlanBssEntries.Where(X => GetStringForSSID(X.dot11Ssid) == "ALCATEL1").FirstOrDefault();
-                                        wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, wc.getxml(), true);
+                                      if(q.profileName == null)
+                                     {
+                                            MessageText.Clear();
+                                            MessageText.Text = Ssid + " network not found!";
+                                          return;
+                                      }
+                                        MessageText.Clear();
+                                        MessageText.Text = Ssid + " netwok found!";
+                                        
+                                        try
+                                        {
+                                            String xprofile = wc.getxml();
+                                            wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, xprofile, true);
+                                            MessageText.Clear();
+                                            MessageText.Text = Ssid + " profile was set!";
+                                            
+                                        }
+                                        catch
+                                        {
+                                            MessageText.Clear();
+                                            MessageText.Text = Ssid + " cannot set profile!";
+                                            return;
+                                        }
                                       //  wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, wc.getxml());
                                     }
                                     break;
