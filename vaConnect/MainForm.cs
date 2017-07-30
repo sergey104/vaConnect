@@ -86,96 +86,108 @@ namespace vaConnect
             } */
             requestList.EndUpdate();
         }
-/*
-        /// <summary>
-        /// Starts the Http Listener on a background thread.
-        /// </summary>
-        private void StartHttpListener()
-        {
-            if (HttpListener.IsSupported)
-            {
-                try
+        /*
+                /// <summary>
+                /// Starts the Http Listener on a background thread.
+                /// </summary>
+                private void StartHttpListener()
                 {
-                    //Creates a HttpListener with two urls for RSS and HTML.
-                    HttpListener listener = new HttpListener();
-                    listener.Prefixes.Add("http://localhost:8080/taskfeed/");
-                    listener.Prefixes.Add("http://localhost:8080/taskhtml/");
-                    listener.Start();
-                    while (true)
+                    if (HttpListener.IsSupported)
                     {
-                        HttpListenerContext context = listener.GetContext();
-                        HttpListenerRequest request = context.Request;
-                        HttpListenerResponse response = context.Response;
-
-                        //Checks if the user is requesting the HTML page or the RSS feed.
-                        if (context.Request.RawUrl.EndsWith("feed"))
+                        try
                         {
-                            //Renders the RSS feed.
-                            context.Response.ContentType = "application/xml";
-
-                            XmlTextWriter xmlWriter = new XmlTextWriter(context.Response.OutputStream, Encoding.UTF8);
-                            xmlWriter.WriteStartDocument();
-                            xmlWriter.WriteStartElement("rss");
-                            xmlWriter.WriteAttributeString("version", "2.0");
-                            xmlWriter.WriteStartElement("channel");
-                            xmlWriter.WriteElementString("title", "VaConnect Application - Open Requests");
-                            xmlWriter.WriteElementString("description", "An RSS feed of open VaConnect Requests. Can be used by gadgets, feed readers etc.");
-                            xmlWriter.WriteElementString("link", "http://localhost:8080/taskhtml/");
-                            foreach (VaConnectRequest hr in logic.RequestDatabase)
+                            //Creates a HttpListener with two urls for RSS and HTML.
+                            HttpListener listener = new HttpListener();
+                            listener.Prefixes.Add("http://localhost:8080/taskfeed/");
+                            listener.Prefixes.Add("http://localhost:8080/taskhtml/");
+                            listener.Start();
+                            while (true)
                             {
-                                if (!hr.Closed)
+                                HttpListenerContext context = listener.GetContext();
+                                HttpListenerRequest request = context.Request;
+                                HttpListenerResponse response = context.Response;
+
+                                //Checks if the user is requesting the HTML page or the RSS feed.
+                                if (context.Request.RawUrl.EndsWith("feed"))
                                 {
-                                    xmlWriter.WriteStartElement("item");
-                                    xmlWriter.WriteElementString("guid", hr.ID.ToString());
-                                    xmlWriter.WriteElementString("title", hr.Subject);
-                                    xmlWriter.WriteElementString("link", "vaconnect://open?id=" + hr.ID.ToString());
-                                    xmlWriter.WriteElementString("pubDate", hr.Date.ToString("r"));
+                                    //Renders the RSS feed.
+                                    context.Response.ContentType = "application/xml";
+
+                                    XmlTextWriter xmlWriter = new XmlTextWriter(context.Response.OutputStream, Encoding.UTF8);
+                                    xmlWriter.WriteStartDocument();
+                                    xmlWriter.WriteStartElement("rss");
+                                    xmlWriter.WriteAttributeString("version", "2.0");
+                                    xmlWriter.WriteStartElement("channel");
+                                    xmlWriter.WriteElementString("title", "VaConnect Application - Open Requests");
+                                    xmlWriter.WriteElementString("description", "An RSS feed of open VaConnect Requests. Can be used by gadgets, feed readers etc.");
+                                    xmlWriter.WriteElementString("link", "http://localhost:8080/taskhtml/");
+                                    foreach (VaConnectRequest hr in logic.RequestDatabase)
+                                    {
+                                        if (!hr.Closed)
+                                        {
+                                            xmlWriter.WriteStartElement("item");
+                                            xmlWriter.WriteElementString("guid", hr.ID.ToString());
+                                            xmlWriter.WriteElementString("title", hr.Subject);
+                                            xmlWriter.WriteElementString("link", "vaconnect://open?id=" + hr.ID.ToString());
+                                            xmlWriter.WriteElementString("pubDate", hr.Date.ToString("r"));
+                                            xmlWriter.WriteEndElement();
+                                        }
+                                    }
                                     xmlWriter.WriteEndElement();
+                                    xmlWriter.WriteEndElement();
+                                    xmlWriter.WriteEndDocument();
+                                    xmlWriter.Flush();
+                                    xmlWriter.Close();
                                 }
+                                else
+                                {
+                                    //Renders the HTML page.
+                                    context.Response.ContentType = "text/html";
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.Append("<html><head><title>VaConnect Application</title>");
+                                    sb.Append("<link rel='alternate' type='application/rss+xml' title='VaConnect Request Feed' href='taskfeed' />");
+                                    sb.Append("<style>body { font-family: verdana; }</style></head><body>");
+
+                                    sb.Append("<h1 style='color: red;'>Open VaConnect Requests</h1><ul>");
+                                    foreach (VaConnectRequest openItem in logic.RequestDatabase.FindAll(delegate (VaConnectRequest hr) { return !hr.Closed; }))
+                                    {
+                                        sb.Append(string.Format("<li><a href=vaconnect://open?id={0}'>{1}</a></li>", openItem.ID, openItem.Subject));
+                                    }
+
+                                    sb.Append("</ul><h1 style='color: green;'>Closed VaConnect Requests</h1><ul>");
+                                    foreach (VaConnectRequest closedItem in logic.RequestDatabase.FindAll(delegate (VaConnectRequest hr) { return hr.Closed; }))
+                                    {
+                                        sb.Append(string.Format("<li><a href='vaconnect://open?id={0}'>{1}</a></li>", closedItem.ID, closedItem.Subject));
+                                    }
+                                    sb.Append("</ul></body></html>");
+
+                                    StreamWriter streamWriter = new StreamWriter(response.OutputStream);
+                                    streamWriter.WriteLine(sb.ToString());
+                                    streamWriter.Flush();
+                                    streamWriter.Dispose();
+                                }
+                                response.Close();
                             }
-                            xmlWriter.WriteEndElement();
-                            xmlWriter.WriteEndElement();
-                            xmlWriter.WriteEndDocument();
-                            xmlWriter.Flush();
-                            xmlWriter.Close();
                         }
-                        else
+                        catch (Exception)
                         {
-                            //Renders the HTML page.
-                            context.Response.ContentType = "text/html";
-                            StringBuilder sb = new StringBuilder();
-                            sb.Append("<html><head><title>VaConnect Application</title>");
-                            sb.Append("<link rel='alternate' type='application/rss+xml' title='VaConnect Request Feed' href='taskfeed' />");
-                            sb.Append("<style>body { font-family: verdana; }</style></head><body>");
-
-                            sb.Append("<h1 style='color: red;'>Open VaConnect Requests</h1><ul>");
-                            foreach (VaConnectRequest openItem in logic.RequestDatabase.FindAll(delegate (VaConnectRequest hr) { return !hr.Closed; }))
-                            {
-                                sb.Append(string.Format("<li><a href=vaconnect://open?id={0}'>{1}</a></li>", openItem.ID, openItem.Subject));
-                            }
-
-                            sb.Append("</ul><h1 style='color: green;'>Closed VaConnect Requests</h1><ul>");
-                            foreach (VaConnectRequest closedItem in logic.RequestDatabase.FindAll(delegate (VaConnectRequest hr) { return hr.Closed; }))
-                            {
-                                sb.Append(string.Format("<li><a href='vaconnect://open?id={0}'>{1}</a></li>", closedItem.ID, closedItem.Subject));
-                            }
-                            sb.Append("</ul></body></html>");
-
-                            StreamWriter streamWriter = new StreamWriter(response.OutputStream);
-                            streamWriter.WriteLine(sb.ToString());
-                            streamWriter.Flush();
-                            streamWriter.Dispose();
+                            MessageBox.Show("Unable to start HttpHandler. Are you running this application as an administrator?", "Running as administrator?", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        response.Close();
                     }
                 }
-                catch (Exception)
-                {
-                    MessageBox.Show("Unable to start HttpHandler. Are you running this application as an administrator?", "Running as administrator?", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+        */
+        /// <summary>
+        /// Git ssid string name
+        /// The method parse name from byte form
+        /// </summary>
+        /// <param name="ssid"></param>
+        static string GetStringForSSID(Wlan.Dot11Ssid ssid)
+        {
+            return Encoding.ASCII.GetString(ssid.SSID, 0, (int)ssid.SSIDLength);
         }
-*/
+
+
+
         /// <summary>
         /// Executed when the user launches a new instance of the application.
         /// The method parse all the command line arguments.
@@ -229,7 +241,7 @@ namespace vaConnect
 
                                         Wlan.WlanAvailableNetwork[] wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
                                         // var q = ResultCollection.Where(X => X.Ssid == "ALCATEL1").FirstOrDefault();
-                                        var q = wlanBssEntries.Where(X => X.profileName == "ALCATEL1").FirstOrDefault();
+                                        
 
 
                                         requestList.Items.Clear();
@@ -250,7 +262,17 @@ namespace vaConnect
                                             requestList.Items.Add(listItemWiFi);
 
                                         }
-                                        k++;
+                                        requestList.Sorting = SortOrder.Ascending;
+                                        for (int i = 0; i < requestList.Items.Count - 1; i++)
+                                        {
+                                            if (requestList.Items[i].Tag == requestList.Items[i + 1].Tag)
+                                            {
+                                                requestList.Items[i + 1].Remove();
+                                            }
+                                        }
+                                        var q = wlanBssEntries.Where(X => GetStringForSSID(X.dot11Ssid) == "ALCATEL1").FirstOrDefault();
+                                        wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, wc.getxml(), true);
+                                      //  wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, wc.getxml());
                                     }
                                     break;
                                 }
