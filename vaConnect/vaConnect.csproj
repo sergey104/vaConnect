@@ -82,11 +82,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessLogic.cs" />
     <Compile Include="eap\EapPEAP.cs" />
     <Compile Include="eap\EapTLS.cs" />
     <Compile Include="eap\EapTTLS.cs" />
-    <Compile Include="VaConnectRequest.cs" />
+    <Compile Include="HelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpForm.Designer.cs">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +99,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="HelpForm.resx">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -103,10 +110,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RequestForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>RequestForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -123,12 +126,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="RequestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RequestForm.Designer.cs">
-      <DependentUpon>RequestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="rest\model\WiFiConfiguration.cs" />
     <Compile Include="rest\model\WiFiProfile.cs" />
