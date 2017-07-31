@@ -198,6 +198,82 @@ namespace vaConnect
                                     }
                                     break;
                                 }
+                            case 4:
+                                {
+                                    WlanClient client = new WlanClient();
+                                    Wlan.WlanAvailableNetwork[] wlanBssEntries = null;
+                                    int k = 1;
+                                    WlanClient.WlanInterface[] wlanIfaces = client.Interfaces;
+                                    foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
+                                    {
+
+                                        try
+                                        {
+                                            wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            String er = ex.ToString();
+                                            MessageText.Clear();
+                                            MessageText.Text = er;
+                                            return;
+                                        }
+
+
+                                        requestList.Items.Clear();
+                                        foreach (Wlan.WlanAvailableNetwork network in wlanBssEntries)
+                                        {
+
+                                            ListViewItem listItemWiFi = new ListViewItem();
+
+
+                                            listItemWiFi.Text = System.Text.ASCIIEncoding.ASCII.GetString(network.dot11Ssid.SSID).Trim((char)0);
+
+
+
+                                            listItemWiFi.SubItems.Add(network.dot11DefaultAuthAlgorithm.ToString().Trim((char)0));
+                                            listItemWiFi.SubItems.Add(network.dot11DefaultCipherAlgorithm.ToString().Trim((char)0));
+
+
+                                            requestList.Items.Add(listItemWiFi);
+
+                                        }
+                                        requestList.Sorting = SortOrder.Ascending;
+                                        for (int i = 0; i < requestList.Items.Count - 1; i++)
+                                        {
+                                            if (requestList.Items[i].Tag == requestList.Items[i + 1].Tag)
+                                            {
+                                                requestList.Items[i + 1].Remove();
+                                            }
+                                        }
+                                        var q = wlanBssEntries.Where(X => GetStringForSSID(X.dot11Ssid) == Ssid).FirstOrDefault();
+                                        if (q.profileName == null)
+                                        {
+                                            MessageText.Clear();
+                                            MessageText.Text = Ssid + " network not found!";
+                                            return;
+                                        }
+                                        MessageText.Clear();
+                                        MessageText.Text = Ssid + " netwok found!";
+
+                                        try
+                                        {
+                                            String xprofile = wc.getxml();
+                                            wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, xprofile, true);
+                                            MessageText.Clear();
+                                            MessageText.Text = Ssid + " profile was set!";
+
+                                        }
+                                        catch
+                                        {
+                                            MessageText.Clear();
+                                            MessageText.Text = Ssid + " cannot set profile!";
+                                            return;
+                                        }
+                                        //  wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, wc.getxml());
+                                    }
+                                    break;
+                                }
                             default:
                                 {
                                     int i = 0;
