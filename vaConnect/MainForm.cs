@@ -125,14 +125,23 @@ namespace vaConnect
                             case 2:
                                 {
                                     WlanClient client = new WlanClient();
+                                    Wlan.WlanAvailableNetwork[] wlanBssEntries = null;
                                     int k = 1;
                                     WlanClient.WlanInterface[] wlanIfaces = client.Interfaces;
                                     foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
                                     {
 
-                                        Wlan.WlanAvailableNetwork[] wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
-                                        // var q = ResultCollection.Where(X => X.Ssid == "ALCATEL1").FirstOrDefault();
-                                        
+                                        try
+                                        {
+                                            wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            String er = ex.ToString();
+                                            MessageText.Clear();
+                                            MessageText.Text = er;
+                                            return;
+                                        }
 
 
                                         requestList.Items.Clear();
@@ -161,7 +170,7 @@ namespace vaConnect
                                                 requestList.Items[i + 1].Remove();
                                             }
                                         }
-                                        var q = wlanBssEntries.Where(X => GetStringForSSID(X.dot11Ssid) == "ALCATEL1").FirstOrDefault();
+                                        var q = wlanBssEntries.Where(X => GetStringForSSID(X.dot11Ssid) == Ssid).FirstOrDefault();
                                       if(q.profileName == null)
                                      {
                                             MessageText.Clear();
@@ -234,13 +243,22 @@ namespace vaConnect
         private void showWebButton_Click(object sender, EventArgs e)
         {
             WlanClient client = new WlanClient();
+            Wlan.WlanAvailableNetwork[] wlanBssEntries = null;
             int k = 1;
             WlanClient.WlanInterface[] wlanIfaces = client.Interfaces;
             foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
             {
-
-                Wlan.WlanAvailableNetwork[] wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
-                // var q = ResultCollection.Where(X => X.Ssid == "ALCATEL1").FirstOrDefault();
+                try
+                {
+                    wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
+                }
+                catch(Exception ex) {
+                    String er = ex.ToString();
+                    MessageText.Clear();
+                    MessageText.Text = er;
+                    return;
+                }
+                
 
 
 
@@ -274,14 +292,40 @@ namespace vaConnect
             }
         }
 
-        /// <summary>
-        /// Method executed when the user clicks the "about" button.
-        /// </summary>
-        private void helpToolStripButton_Click(object sender, EventArgs e)
+       
+        private void registry()
         {
-            MessageBox.Show(this, "Example application written by Jonas Follesø\r\nhttp://jonas.follesoe.no", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (Registry.ClassesRoot.OpenSubKey("vaConnect") == null)
+            {
+                try
+                {
+                    RegistryKey vac = Registry.ClassesRoot.CreateSubKey("VaConnect");
+                    vac.SetValue("", "URL:VaConnect Protocol");
+                    vac.SetValue("URL Protocol", "");
+
+                    RegistryKey defaultIcon = vac.CreateSubKey("DefaultIcon");
+                    defaultIcon.SetValue("", Path.GetFileName(Application.ExecutablePath));
+
+                    RegistryKey shell = vac.CreateSubKey("shell");
+                    RegistryKey open = shell.CreateSubKey("open");
+                    RegistryKey command = open.CreateSubKey("command");
+                    command.SetValue("", Application.ExecutablePath + " %1");
+                    installProtocolHandler.Enabled = false;
+                    removeProtocolHandler.Enabled = true;
+                    MessageBox.Show("Protocol handler registered!", "Registered", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Unable to register protocol handler. Are you running this application as an administrator?", "Running as administrator?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Protocol handler allready registered!", "Allready registered", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
+   
         /// <summary>
         /// Method executed when the user clicks the button to register the protocol handler.
         /// The method writes all registry keys needed to register the vaconnect:// protochol handler.
