@@ -22,6 +22,7 @@ C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\ManagedWifi.dll
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.csprojResolveAssemblyReference.cache
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.HelpForm.resources
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.MainForm.resources
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.Properties.Resources.resources
@@ -31,4 +32,3 @@ C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.application
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.exe
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.pdb
-C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.csprojResolveAssemblyReference.cache
