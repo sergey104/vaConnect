@@ -61,22 +61,23 @@ namespace vaConnect.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
         ///&lt;WLANProfile xmlns=&quot;http://www.microsoft.com/networking/WLAN/profile/v1&quot;&gt;
-        ///    &lt;name&gt;SampleWPAEnterpriseTLS&lt;/name&gt;
-        ///    &lt;SSIDConfig&gt;
-        ///        &lt;SSID&gt;
-        ///            &lt;name&gt;{0}&lt;/name&gt;
-        ///        &lt;/SSID&gt;
-        ///        &lt;nonBroadcast&gt;false&lt;/nonBroadcast&gt;
-        ///    &lt;/SSIDConfig&gt;
-        ///    &lt;connectionType&gt;ESS&lt;/connectionType&gt;
-        ///    &lt;connectionMode&gt;auto&lt;/connectionMode&gt;
-        ///    &lt;autoSwitch&gt;false&lt;/autoSwitch&gt;
-        ///    &lt;MSM&gt;
-        ///        &lt;security&gt;
-        ///            &lt;authEncryption&gt;
-        ///                &lt;authenticat [rest of string was truncated]&quot;;.
+        ///  &lt;name&gt;fon_vmnac_int&lt;/name&gt;
+        ///  &lt;SSIDConfig&gt;
+        ///    &lt;SSID&gt;
+        ///      &lt;hex&gt;666F6E5F766D6E61635F696E74&lt;/hex&gt;
+        ///      &lt;name&gt;fon_vmnac_int&lt;/name&gt;
+        ///    &lt;/SSID&gt;
+        ///    &lt;nonBroadcast&gt;false&lt;/nonBroadcast&gt;
+        ///  &lt;/SSIDConfig&gt;
+        ///  &lt;connectionType&gt;ESS&lt;/connectionType&gt;
+        ///  &lt;connectionMode&gt;auto&lt;/connectionMode&gt;
+        ///  &lt;autoSwitch&gt;false&lt;/autoSwitch&gt;
+        ///  &lt;MSM&gt;
+        ///    &lt;security&gt;
+        ///      &lt;authEncryption&gt;
+        ///        &lt;authentication&gt;WPA2&lt;/authenticatio [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EapPEAP {
             get {
@@ -109,22 +110,24 @@ namespace vaConnect.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
         ///&lt;WLANProfile xmlns=&quot;http://www.microsoft.com/networking/WLAN/profile/v1&quot;&gt;
-        ///    &lt;name&gt;SampleWPAEnterpriseTLS&lt;/name&gt;
-        ///    &lt;SSIDConfig&gt;
-        ///        &lt;SSID&gt;
-        ///            &lt;name&gt;{0}&lt;/name&gt;
-        ///        &lt;/SSID&gt;
-        ///        &lt;nonBroadcast&gt;false&lt;/nonBroadcast&gt;
-        ///    &lt;/SSIDConfig&gt;
-        ///    &lt;connectionType&gt;ESS&lt;/connectionType&gt;
-        ///    &lt;connectionMode&gt;auto&lt;/connectionMode&gt;
-        ///    &lt;autoSwitch&gt;false&lt;/autoSwitch&gt;
-        ///    &lt;MSM&gt;
-        ///        &lt;security&gt;
-        ///            &lt;authEncryption&gt;
-        ///                &lt;authenticat [rest of string was truncated]&quot;;.
+        ///	&lt;name&gt;fon_vmnac_int&lt;/name&gt;
+        ///	&lt;SSIDConfig&gt;
+        ///		&lt;SSID&gt;
+        ///			&lt;hex&gt;666F6E5F766D6E61635F696E74&lt;/hex&gt;
+        ///			&lt;name&gt;fon_vmnac_int&lt;/name&gt;
+        ///		&lt;/SSID&gt;
+        ///		&lt;nonBroadcast&gt;false&lt;/nonBroadcast&gt;
+        ///	&lt;/SSIDConfig&gt;
+        ///	&lt;connectionType&gt;ESS&lt;/connectionType&gt;
+        ///	&lt;connectionMode&gt;auto&lt;/connectionMode&gt;
+        ///	&lt;autoSwitch&gt;false&lt;/autoSwitch&gt;
+        ///	&lt;MSM&gt;
+        ///		&lt;security&gt;
+        ///			&lt;authEncryption&gt;
+        ///				&lt;authentication&gt;WPA2&lt;/authentication&gt;
+        ///				&lt;encryption&gt;AES&lt;/enc [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EapTTLSy {
             get {
@@ -143,11 +146,51 @@ namespace vaConnect.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ic_launcher {
+            get {
+                object obj = ResourceManager.GetObject("ic_launcher", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap main_white {
+            get {
+                object obj = ResourceManager.GetObject("main_white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://vmnac-int.fon.com.
         /// </summary>
         internal static string UriVAConnect {
             get {
                 return ResourceManager.GetString("UriVAConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap vaconnect {
+            get {
+                object obj = ResourceManager.GetObject("vaconnect", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap web_hi_res_512 {
+            get {
+                object obj = ResourceManager.GetObject("web_hi_res_512", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

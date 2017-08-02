@@ -48,9 +48,9 @@
             // 
             // statusStrip
             // 
-            this.statusStrip.Location = new System.Drawing.Point(0, 367);
+            this.statusStrip.Location = new System.Drawing.Point(0, 489);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(610, 22);
+            this.statusStrip.Size = new System.Drawing.Size(608, 22);
             this.statusStrip.TabIndex = 0;
             // 
             // toolStrip
@@ -63,7 +63,7 @@
             this.helpButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(610, 39);
+            this.toolStrip.Size = new System.Drawing.Size(608, 39);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -117,7 +117,7 @@
             this.requestList.Location = new System.Drawing.Point(12, 88);
             this.requestList.MultiSelect = false;
             this.requestList.Name = "requestList";
-            this.requestList.Size = new System.Drawing.Size(356, 205);
+            this.requestList.Size = new System.Drawing.Size(292, 256);
             this.requestList.TabIndex = 2;
             this.requestList.UseCompatibleStateImageBehavior = false;
             this.requestList.View = System.Windows.Forms.View.Details;
@@ -135,7 +135,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::vaConnect.Properties.Resources.fon_logo;
+            this.pictureBox1.Image = global::vaConnect.Properties.Resources.vaconnect;
             this.pictureBox1.Location = new System.Drawing.Point(498, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 90);
@@ -154,12 +154,12 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.Gray;
-            this.button1.Location = new System.Drawing.Point(209, 327);
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(201)))), ((int)(((byte)(200)))));
+            this.button1.Location = new System.Drawing.Point(203, 363);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(183, 23);
+            this.button1.Size = new System.Drawing.Size(202, 37);
             this.button1.TabIndex = 6;
-            this.button1.Text = "Start";
+            this.button1.Text = "Start Onboarding";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -171,14 +171,16 @@
             this.MessageText.Location = new System.Drawing.Point(407, 141);
             this.MessageText.Multiline = true;
             this.MessageText.Name = "MessageText";
-            this.MessageText.Size = new System.Drawing.Size(180, 106);
+            this.MessageText.Size = new System.Drawing.Size(180, 177);
             this.MessageText.TabIndex = 7;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 389);
+            this.BackgroundImage = global::vaConnect.Properties.Resources.main_white;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(608, 511);
             this.Controls.Add(this.MessageText);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
@@ -186,6 +188,7 @@
             this.Controls.Add(this.requestList);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.statusStrip);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "VaConnect Application v1.0";

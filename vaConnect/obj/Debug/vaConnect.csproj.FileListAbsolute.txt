@@ -32,3 +32,5 @@ C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.application
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.exe
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.pdb
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.csprojResolveAssemblyReference.cache
+D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.HelpForm.resources

@@ -145,6 +145,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="help.ico" />
+    <None Include="Resources\vaconnect.png" />
+    <None Include="Resources\ic_launcher.png" />
+    <None Include="Resources\web_hi_res_512.png" />
+    <None Include="Resources\main_white.png" />
     <None Include="Resources\images\fon_logo.png" />
     <None Include="Resources\Image1.jpg" />
     <None Include="Resources\EapPEAP.xml" />

@@ -133,4 +133,16 @@
   <data name="UriVAConnect" xml:space="preserve">
     <value>https://vmnac-int.fon.com</value>
   </data>
+  <data name="main_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\main_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vaconnect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vaconnect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web_hi_res_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\web_hi_res_512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_launcher" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_launcher.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
