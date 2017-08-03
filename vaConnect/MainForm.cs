@@ -14,7 +14,8 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using Microsoft.Win32;
 using System.Diagnostics;
-using NativeWifi;
+//using NativeWifi;
+using WlanNative;
 using System.Linq;
 
 
@@ -73,10 +74,10 @@ namespace vaConnect
         /// The method parse name from byte form
         /// </summary>
         /// <param name="ssid"></param>
-        static string GetStringForSSID(Wlan.Dot11Ssid ssid)
-        {
-            return Encoding.ASCII.GetString(ssid.SSID, 0, (int)ssid.SSIDLength);
-        }
+    //    static string GetStringForSSID(Wlan.Dot11Ssid ssid)
+    //    {
+     //       return Encoding.ASCII.GetString(ssid.SSID, 0, (int)ssid.SSIDLength);
+    //    }
 
 
 
@@ -121,7 +122,7 @@ namespace vaConnect
                         WiFiConfiguration wc = z.getWifiConfiguration();
                        
                         //////////////////////////////////switch
-                        switch(numVal)
+ /*                       switch(numVal)
                         {
                             case 2:
                                 {
@@ -303,7 +304,7 @@ namespace vaConnect
                                     break;
                                 }
 
-                        }
+                        } */
 
                     } 
                 } 
@@ -341,7 +342,7 @@ namespace vaConnect
         /// </summary>
         private void showWebButton_Click(object sender, EventArgs e)
         {
-            WlanClient client = new WlanClient();
+         /*   WlanClient client = new WlanClient();
             Wlan.WlanAvailableNetwork[] wlanBssEntries = null;
             int k = 1;
             WlanClient.WlanInterface[] wlanIfaces = client.Interfaces;
@@ -388,7 +389,7 @@ namespace vaConnect
                     }
                 }
                 
-            }
+            } */
         }
 
        

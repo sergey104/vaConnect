@@ -88,7 +88,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Credentials.cs" />
     <Compile Include="eap\EapPEAP.cs" />
     <Compile Include="eap\EapTLS.cs" />
     <Compile Include="eap\EapTTLS.cs" />
@@ -162,7 +161,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\WlanNative\WlanNative.vcxproj">
+      <Project>{ea249533-e70b-4930-9074-7d68c7efe62c}</Project>
+      <Name>WlanNative</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
