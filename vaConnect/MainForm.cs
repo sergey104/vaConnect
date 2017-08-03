@@ -26,8 +26,10 @@ namespace vaConnect
     /// </summary>
     public partial class MainForm : Form
     {
-        
 
+        WlanNative.WlanNative native = null;
+        List<WlanInterface> interfaces = null;
+        List<WlanNetwork> networks = null;
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -35,6 +37,50 @@ namespace vaConnect
         {
             InitializeComponent();
             
+        }
+        void RefreshInterfaces()
+        {
+            try
+            {
+                if (native == null)
+                {
+                    native = new WlanNative.WlanNative();
+                }
+                interfaces = native.GetInterfaces();
+            }
+            catch (Exception ex)
+            {
+                UIError(ex);
+            }
+        }
+        void RefreshNetworks()
+        {
+
+            foreach (WlanInterface i in interfaces)
+            {
+                try
+                {
+                    if (i != null)
+                    {
+                        i.ScanForNetworks();
+                        networks = i.GetAvailableNetworks(false, false);
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    UIError(ex);
+                }
+            }
+            
+           
+        }
+        void UIError (Exception e)
+        {
+            String er = e.ToString();
+            MessageText.Clear();
+            MessageText.Text = er;
+            return;
         }
 
         /// <summary>
@@ -95,6 +141,9 @@ namespace vaConnect
                 String identifier;
                 String Ssid;
                 String password;
+                String username;
+                String profile_name;
+
                 bool valid = Uri.IsWellFormedUriString(s, UriKind.Absolute);
                 if (valid)
                 {
@@ -112,6 +161,9 @@ namespace vaConnect
                         {
                             z = await OnboardingService.getInstance().getWiFiProfileAsync(token, identifier);
                             Ssid = z.getUser_policies().getSsid();
+                            password = z.getUser_policies().getPassword();
+                            username = z.getUser_policies().getUsername();
+                            profile_name = z.getUser_policies().getProfile_name();
                         }
                         catch
                         {
@@ -122,189 +174,96 @@ namespace vaConnect
                         WiFiConfiguration wc = z.getWifiConfiguration();
                        
                         //////////////////////////////////switch
- /*                       switch(numVal)
+                       switch(numVal)
                         {
                             case 2:
                                 {
-                                    WlanClient client = new WlanClient();
-                                    Wlan.WlanAvailableNetwork[] wlanBssEntries = null;
-                                    int k = 1;
-                                    WlanClient.WlanInterface[] wlanIfaces = client.Interfaces;
-                                    foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
-                                    {
-
-                                        try
-                                        {
-                                            wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            String er = ex.ToString();
-                                            MessageText.Clear();
-                                            MessageText.Text = er;
-                                            return;
-                                        }
-
-
-                                        requestList.Items.Clear();
-                                        foreach (Wlan.WlanAvailableNetwork network in wlanBssEntries)
+                                    RefreshInterfaces();
+                                    RefreshNetworks();
+                                    requestList.Items.Clear();
+                                    foreach (WlanNetwork network in networks)
                                         {
                                             
                                             ListViewItem listItemWiFi = new ListViewItem();
 
-                                            
-                                            listItemWiFi.Text = System.Text.ASCIIEncoding.ASCII.GetString(network.dot11Ssid.SSID).Trim((char)0);
 
-                                            
-                                            
-                                            listItemWiFi.SubItems.Add(network.dot11DefaultAuthAlgorithm.ToString().Trim((char)0)); 
-                                            listItemWiFi.SubItems.Add(network.dot11DefaultCipherAlgorithm.ToString().Trim((char)0)); 
-                                            
-                                            
-                                            requestList.Items.Add(listItemWiFi);
+                                        listItemWiFi.Text = network.SSID;
+
+
+
+                                        listItemWiFi.SubItems.Add(network.DefaultAuthAlgorithm.ToString());
+                                        listItemWiFi.SubItems.Add(network.DefaultCipherAlgorithm.ToString());
+
+                                        requestList.Items.Add(listItemWiFi);
 
                                         }
-                                        requestList.Sorting = SortOrder.Ascending;
-                                        for (int i = 0; i < requestList.Items.Count - 1; i++)
+                                    requestList.Sorting = SortOrder.Ascending;
+                                    for (int i = 0; i < requestList.Items.Count - 1; i++)
+                                    {
+                                        if (requestList.Items[i].Tag == requestList.Items[i + 1].Tag)
                                         {
-                                            if (requestList.Items[i].Tag == requestList.Items[i + 1].Tag)
-                                            {
-                                                requestList.Items[i + 1].Remove();
-                                            }
+                                            requestList.Items[i + 1].Remove();
                                         }
-                                        var q = wlanBssEntries.Where(X => GetStringForSSID(X.dot11Ssid) == Ssid).FirstOrDefault();
-                                      if(q.profileName == null)
-                                     {
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " network not found!";
-                                          return;
-                                      }
-                                        MessageText.Clear();
-                                        MessageText.Text = Ssid + " netwok found!";
-                                        
-                                        try
+                                    }
+                                    var q = networks.Where(X => X.SSID == "ALCATEL1").FirstOrDefault();
+                                    if(q == null)
+                                    {
+                                      MessageText.Clear();
+                                      MessageText.Text = Ssid + " network not found!";
+                                      return;
+                                     }
+                                   
+                                      MessageText.Clear();
+                                      MessageText.Text = Ssid + " netwok found!";
+                                      
+                                         try
                                         {
                                             String xprofile = wc.getxml();
-                                            wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, xprofile, true);
+                                             foreach (WlanInterface i in interfaces)
+                                                {
+                                                WlanProfile p = new WlanProfile();
+                                            List<WlanProfile> ddd = i.GetProfiles();
+                                                
+                                                i.SetProfile(p, xprofile);
+                                            List<WlanProfile> dd2 = i.GetProfiles();
                                             MessageText.Clear();
-                                            MessageText.Text = Ssid + " profile was set!";
-                                            
+                                                MessageText.Text = Ssid + " profile was set!";
+                                            var x = dd2.Where(X => X.ProfileName == profile_name).FirstOrDefault();
+                                            string template = Properties.Resources.SDK;
+                                            string xm = String.Format(template, username, password);
+                                            i.SetProfileEAPXmlUserData(x.ProfileName, xm,true);
+                                            MessageText.AppendText(" OK");
                                         }
-                                        catch
+                                        }
+                                        catch(Exception e)
                                         {
                                             MessageText.Clear();
-                                            MessageText.Text = Ssid + " cannot set profile!";
+                                            MessageText.Text = Ssid + " cannot set profile!" + e.ToString();
                                             return;
                                         }
-                                        try
+                                    /*    try
                                         {
                                             wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any,q.profileName);
-                                            
+
                                             MessageText.AppendText( Ssid + " profile was connected!");
                                         }
                                         catch
                                         {
-                                           
-                                            MessageText.AppendText(Ssid + " cannot connect!");
-                                            return;
-                                        }
-                                    }
-                                    break;
-                                }
-                            case 4:
-                                {
-                                    WlanClient client = new WlanClient();
-                                    Wlan.WlanAvailableNetwork[] wlanBssEntries = null;
-                                    int k = 1;
-                                    WlanClient.WlanInterface[] wlanIfaces = client.Interfaces;
-                                    foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
-                                    {
-
-                                        try
-                                        {
-                                            wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            String er = ex.ToString();
-                                            MessageText.Clear();
-                                            MessageText.Text = er;
-                                            return;
-                                        }
-
-
-                                        requestList.Items.Clear();
-                                        foreach (Wlan.WlanAvailableNetwork network in wlanBssEntries)
-                                        {
-
-                                            ListViewItem listItemWiFi = new ListViewItem();
-
-
-                                            listItemWiFi.Text = System.Text.ASCIIEncoding.ASCII.GetString(network.dot11Ssid.SSID).Trim((char)0);
-
-
-
-                                            listItemWiFi.SubItems.Add(network.dot11DefaultAuthAlgorithm.ToString().Trim((char)0));
-                                            listItemWiFi.SubItems.Add(network.dot11DefaultCipherAlgorithm.ToString().Trim((char)0));
-
-
-                                            requestList.Items.Add(listItemWiFi);
-
-                                        }
-                                        requestList.Sorting = SortOrder.Ascending;
-                                        for (int i = 0; i < requestList.Items.Count - 1; i++)
-                                        {
-                                            if (requestList.Items[i].Tag == requestList.Items[i + 1].Tag)
-                                            {
-                                                requestList.Items[i + 1].Remove();
-                                            }
-                                        }
-                                        var q = wlanBssEntries.Where(X => GetStringForSSID(X.dot11Ssid) == Ssid).FirstOrDefault();
-                                        if (q.profileName == null)
-                                        {
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " network not found!";
-                                            return;
-                                        }
-                                        MessageText.Clear();
-                                        MessageText.Text = Ssid + " netwok found!";
-
-                                        try
-                                        {
-                                            String xprofile = wc.getxml();
-                                            wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, xprofile, true);
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " profile was set!";
-
-                                        }
-                                        catch
-                                        {
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " cannot set profile!";
-                                            return;
-                                        }
-                                        try
-                                        {
-                                            wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, q.profileName);
-
-                                            MessageText.AppendText(Ssid + " profile was connected!");
-                                        }
-                                        catch
-                                        {
 
                                             MessageText.AppendText(Ssid + " cannot connect!");
                                             return;
-                                        }
-                                    }
+                                        } */
+                                     
                                     break;
                                 }
+                            
                             default:
                                 {
                                     int i = 0;
                                     break;
                                 }
 
-                        } */
+                        } 
 
                     } 
                 } 
@@ -342,54 +301,33 @@ namespace vaConnect
         /// </summary>
         private void showWebButton_Click(object sender, EventArgs e)
         {
-         /*   WlanClient client = new WlanClient();
-            Wlan.WlanAvailableNetwork[] wlanBssEntries = null;
-            int k = 1;
-            WlanClient.WlanInterface[] wlanIfaces = client.Interfaces;
-            foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
+            RefreshInterfaces();
+            RefreshNetworks();
+            requestList.Items.Clear();
+            foreach (WlanNetwork network in networks)
             {
-                try
+
+                ListViewItem listItemWiFi = new ListViewItem();
+
+
+                listItemWiFi.Text = network.SSID;
+
+
+
+                listItemWiFi.SubItems.Add(network.DefaultAuthAlgorithm.ToString());
+                listItemWiFi.SubItems.Add(network.DefaultCipherAlgorithm.ToString());
+
+                requestList.Items.Add(listItemWiFi);
+
+            }
+            requestList.Sorting = SortOrder.Ascending;
+            for (int i = 0; i < requestList.Items.Count - 1; i++)
+            {
+                if (requestList.Items[i].Tag == requestList.Items[i + 1].Tag)
                 {
-                    wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
+                    requestList.Items[i + 1].Remove();
                 }
-                catch(Exception ex) {
-                    String er = ex.ToString();
-                    MessageText.Clear();
-                    MessageText.Text = er;
-                    return;
-                }
-                
-
-
-
-                requestList.Items.Clear();
-                foreach (Wlan.WlanAvailableNetwork network in wlanBssEntries)
-                {
-
-                    ListViewItem listItemWiFi = new ListViewItem();
-
-
-                    listItemWiFi.Text = System.Text.ASCIIEncoding.ASCII.GetString(network.dot11Ssid.SSID).Trim((char)0);
-
-
-
-                    listItemWiFi.SubItems.Add(network.dot11DefaultAuthAlgorithm.ToString().Trim((char)0));
-                    listItemWiFi.SubItems.Add(network.dot11DefaultCipherAlgorithm.ToString().Trim((char)0));
-
-
-                    requestList.Items.Add(listItemWiFi);
-
-                }
-                requestList.Sorting = SortOrder.Ascending;
-                for (int i = 0; i < requestList.Items.Count - 1; i++)
-                {
-                    if (requestList.Items[i].Tag == requestList.Items[i + 1].Tag)
-                    {
-                        requestList.Items[i + 1].Remove();
-                    }
-                }
-                
-            } */
+            }
         }
 
        

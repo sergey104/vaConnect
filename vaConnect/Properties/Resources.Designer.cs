@@ -166,6 +166,26 @@ namespace vaConnect.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; ?&gt;
+        ///&lt;EapHostUserCredentials xmlns=&quot;http://www.microsoft.com/provisioning/EapHostUserCredentials&quot; xmlns:eapCommon=&quot;http://www.microsoft.com/provisioning/EapCommon&quot; xmlns:baseEap=&quot;http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials&quot;&gt;
+        ///	&lt;EapMethod&gt;
+        ///		&lt;eapCommon:Type&gt;40&lt;/eapCommon:Type&gt;
+        ///		&lt;eapCommon:AuthorId&gt;100&lt;/eapCommon:AuthorId&gt;
+        ///	&lt;/EapMethod&gt;
+        ///	&lt;Credentials&gt;
+        ///		&lt;EapType&gt;40&lt;/EapType&gt;
+        ///		&lt;Identity&gt;{0}&lt;/Identity&gt;
+        ///		&lt;Password&gt;{1}&lt;/Password&gt;
+        ///	&lt;/Credentials&gt;
+        ///&lt;/EapHostUserC [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SDK {
+            get {
+                return ResourceManager.GetString("SDK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://vmnac-int.fon.com.
         /// </summary>
         internal static string UriVAConnect {
