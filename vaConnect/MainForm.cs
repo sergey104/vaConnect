@@ -51,6 +51,7 @@ namespace vaConnect
             catch (Exception ex)
             {
                 UIError(ex);
+                return;
             }
         }
         void RefreshNetworks()
@@ -70,6 +71,7 @@ namespace vaConnect
                 catch (Exception ex)
                 {
                     UIError(ex);
+                    return;
                 }
             }
             
@@ -78,8 +80,7 @@ namespace vaConnect
         void UIError (Exception e)
         {
             String er = e.ToString();
-            MessageText.Clear();
-            MessageText.Text = er;
+            MessageBox.Show("Error: "+e, "vsConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
             return;
         }
 
@@ -165,9 +166,9 @@ namespace vaConnect
                             username = z.getUser_policies().getUsername();
                             profile_name = z.getUser_policies().getProfile_name();
                         }
-                        catch
+                        catch(Exception e)
                         {
-                            MessageBox.Show("Unable to get WiFi profile data from server");
+                            MessageBox.Show("Unable to get WiFi profile data from server\n" + e.ToString(), "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                             return;
 
                         }
@@ -185,16 +186,11 @@ namespace vaConnect
                                         {
                                             
                                             ListViewItem listItemWiFi = new ListViewItem();
+                                            listItemWiFi.Text = network.SSID;
+                                            listItemWiFi.SubItems.Add(network.DefaultAuthAlgorithm.ToString());
+                                            listItemWiFi.SubItems.Add(network.DefaultCipherAlgorithm.ToString());
 
-
-                                        listItemWiFi.Text = network.SSID;
-
-
-
-                                        listItemWiFi.SubItems.Add(network.DefaultAuthAlgorithm.ToString());
-                                        listItemWiFi.SubItems.Add(network.DefaultCipherAlgorithm.ToString());
-
-                                        requestList.Items.Add(listItemWiFi);
+                                            requestList.Items.Add(listItemWiFi);
 
                                         }
                                     requestList.Sorting = SortOrder.Ascending;
@@ -205,42 +201,79 @@ namespace vaConnect
                                             requestList.Items[i + 1].Remove();
                                         }
                                     }
-                                    var q = networks.Where(X => X.SSID == "ALCATEL1").FirstOrDefault();
+                                    var q = networks.Where(X => X.SSID == Ssid).FirstOrDefault();
                                     if(q == null)
                                     {
-                                      MessageText.Clear();
-                                      MessageText.Text = Ssid + " network not found!";
+                                        MessageBox.Show(Ssid + " network not found!", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                                       
                                       return;
                                      }
-                                   
-                                      MessageText.Clear();
-                                      MessageText.Text = Ssid + " netwok found!";
-                                      
-                                         try
+
+                                    MessageBox.Show(Ssid + " network found!", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+
+                                    
+                                    String xprofile = wc.getxml();
+                                    foreach (WlanInterface i in interfaces)
+                                    {
+                                        try
                                         {
-                                            String xprofile = wc.getxml();
-                                             foreach (WlanInterface i in interfaces)
-                                                {
-                                                WlanProfile p = new WlanProfile();
-                                            List<WlanProfile> ddd = i.GetProfiles();
-                                                
-                                                i.SetProfile(p, xprofile);
+                                            WlanProfile p = new WlanProfile();
+                                            
+                                            i.SetProfile(p, xprofile);
+                                            MessageBox.Show(Ssid + " Profile was set!", "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                                                                                       
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            MessageBox.Show(Ssid + " Cannot set profile!\n"+e.ToString(), "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+
+                                            return;
+                                        }
+                                    }
+                                    //////////////////////////// Credentials
+                                    foreach (WlanInterface i in interfaces)
+                                    {
+                                        try
+                                        {
                                             List<WlanProfile> dd2 = i.GetProfiles();
-                                            MessageText.Clear();
-                                                MessageText.Text = Ssid + " profile was set!";
+                                           
                                             var x = dd2.Where(X => X.ProfileName == profile_name).FirstOrDefault();
                                             string template = Properties.Resources.SDK;
                                             string xm = String.Format(template, username, password);
-                                            i.SetProfileEAPXmlUserData(x.ProfileName, xm,true);
-                                            MessageText.AppendText(" OK");
+                                            i.SetProfileEAPXmlUserData(x.ProfileName, xm, true);
+                                            MessageBox.Show(Ssid + " Profile user and password were set!", "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+
                                         }
-                                        }
-                                        catch(Exception e)
+                                        catch (Exception e)
                                         {
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " cannot set profile!" + e.ToString();
+                                            MessageBox.Show(Ssid + " Cannot set credentials!\n" + e.ToString(), "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+
                                             return;
                                         }
+                                    }
+                                    //////////////////////// Connect
+                                    foreach (WlanInterface i in interfaces)
+                                    {
+                                        try
+                                        {
+                                            List<WlanProfile> dd2 = i.GetProfiles();
+
+                                            var x = dd2.Where(X => X.ProfileName == profile_name).FirstOrDefault();
+                                            i.Connect(x);
+                                            MessageBox.Show(Ssid + " Connected!", "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            MessageBox.Show(Ssid + " Cannot connect!\n" + e.ToString(), "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+
+                                            return;
+                                        }
+                                    }
+
                                     /*    try
                                         {
                                             wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any,q.profileName);
@@ -253,7 +286,7 @@ namespace vaConnect
                                             MessageText.AppendText(Ssid + " cannot connect!");
                                             return;
                                         } */
-                                     
+
                                     break;
                                 }
                             
