@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>vaConnect</RootNamespace>
     <AssemblyName>vaConnect</AssemblyName>
-    <ApplicationIcon>help.ico</ApplicationIcon>
+    <ApplicationIcon>vaconnect.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -179,6 +179,7 @@
     <None Include="vaConnect_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="vaconnect.ico" />
     <None Include="eap\SDK.xml" />
     <Content Include="help.ico" />
     <None Include="Resources\vaconnect.png" />
