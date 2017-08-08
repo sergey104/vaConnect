@@ -292,7 +292,7 @@ namespace vaConnect
                             
                             default:
                                 {
-                                    int i = 0;
+                                    
                                     break;
                                 }
 
