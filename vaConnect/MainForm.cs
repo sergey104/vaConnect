@@ -118,7 +118,8 @@ namespace vaConnect
                 String identifier;
                 String Ssid;
                 String password;
-                String private_cert = null;
+                String user_cert = null;
+                String public_ca = null;
                 bool valid = Uri.IsWellFormedUriString(s, UriKind.Absolute);
                 if (valid)
                 {
@@ -144,23 +145,44 @@ namespace vaConnect
 
                         }
                         WiFiConfiguration wc = z.getWifiConfiguration();
-                        if (numVal == 1 || numVal == 3) private_cert = z.getUser_policies().getUser_cert();
-                        if(private_cert != null)
+                        if (numVal == 1 || numVal == 3)
+                        {
+                            user_cert = z.getUser_policies().getUser_cert();
+                            public_ca = z.getUser_policies().getPublic_ca();
+                        }
+                        if(user_cert != null)
                         {
 
                             try
                             {
-                                X509Store store = new X509Store("testcrt", StoreLocation.CurrentUser);
+                                X509Store store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
                                 store.Open(OpenFlags.ReadWrite);
-                            //    byte[] fff = new byte[private_cert.Length + 1];
-                              //  private_cert.Replace("-----BEGIN CERTIFICATE-----\n", "").Replace("-----END CERTIFICATE-----\n", "");
-                                   byte[] toBytes = Convert.FromBase64String(private_cert);
-                             //   byte[] toBytes = GetBytesFromPEM(private_cert, "CERTIFICATE");
-                                File.WriteAllBytes("d:\\zzz.txt", toBytes);
+                                byte[] toBytes = Convert.FromBase64String(user_cert);
+                               // File.WriteAllBytes("d:\\zzz.txt", toBytes);
                                 X509Certificate2 certificate1 = new X509Certificate2(toBytes);
                                 store.Add(certificate1); //where cert is an X509Certificate object
                                 store.Close();
-                                MessageBox.Show("Cert set", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                                MessageBox.Show("User certificate was set", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                            }
+                            catch (Exception e)
+                            {
+                                UIError(e);
+                                return;
+                            }
+                        }
+                        if (public_ca != null)
+                        {
+
+                            try
+                            {
+                                X509Store store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+                                store.Open(OpenFlags.ReadWrite);
+                                byte[] toBytes = Convert.FromBase64String(public_ca);
+                               // File.WriteAllBytes("d:\\zzz1.txt", toBytes);
+                                X509Certificate2 certificate1 = new X509Certificate2(toBytes);
+                                store.Add(certificate1); //where cert is an X509Certificate object
+                                store.Close();
+                                MessageBox.Show("CA certificate was set", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                             }
                             catch (Exception e)
                             {
@@ -171,6 +193,87 @@ namespace vaConnect
                         //////////////////////////////////switch
                         switch (numVal)
                         {
+                            case 1:
+                                {
+                                    WlanClient client = new WlanClient();
+                                    Wlan.WlanAvailableNetwork[] wlanBssEntries = null;
+                                    int k = 1;
+                                    WlanClient.WlanInterface[] wlanIfaces = client.Interfaces;
+                                    foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
+                                    {
+
+                                        try
+                                        {
+                                            wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            UIError(ex);
+                                            return;
+                                        }
+
+
+                                        requestList.Items.Clear();
+                                        foreach (Wlan.WlanAvailableNetwork network in wlanBssEntries)
+                                        {
+
+                                            ListViewItem listItemWiFi = new ListViewItem();
+
+
+                                            listItemWiFi.Text = System.Text.ASCIIEncoding.ASCII.GetString(network.dot11Ssid.SSID).Trim((char)0);
+
+
+
+                                            listItemWiFi.SubItems.Add(network.dot11DefaultAuthAlgorithm.ToString().Trim((char)0));
+                                            listItemWiFi.SubItems.Add(network.dot11DefaultCipherAlgorithm.ToString().Trim((char)0));
+
+
+                                            requestList.Items.Add(listItemWiFi);
+
+                                        }
+                                        requestList.Sorting = SortOrder.Ascending;
+                                        for (int i = 0; i < requestList.Items.Count - 1; i++)
+                                        {
+                                            if (requestList.Items[i].Tag == requestList.Items[i + 1].Tag)
+                                            {
+                                                requestList.Items[i + 1].Remove();
+                                            }
+                                        }
+                                        var q = wlanBssEntries.Where(X => GetStringForSSID(X.dot11Ssid) == Ssid).FirstOrDefault();
+                                        if (q.profileName == null)
+                                        {
+                                            MessageBox.Show(Ssid + " network not found!", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                                            return;
+                                        }
+                                        MessageBox.Show(Ssid + " network found!", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+                                        try
+                                        {
+                                            String xprofile = wc.getxml();
+                                            wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, xprofile, true);
+                                            MessageBox.Show(Ssid + " Profile was set!", "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            MessageBox.Show(Ssid + " Cannot set profile!\n" + e.ToString(), "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                                            return;
+                                        }
+                                        /*        try
+                                                {
+                                                    wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any,q.profileName);
+
+                                                    MessageText.AppendText( Ssid + " profile was connected!");
+                                                }
+                                                catch
+                                                {
+
+                                                    MessageText.AppendText(Ssid + " cannot connect!");
+                                                    return;
+                                                } */
+                                    }
+                                    break;
+                                }
                             case 2:
                                 {
                                     WlanClient client = new WlanClient();
