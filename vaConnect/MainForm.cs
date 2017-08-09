@@ -16,6 +16,8 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using NativeWifi;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
 
 
 namespace vaConnect
@@ -79,7 +81,29 @@ namespace vaConnect
         }
 
 
+        void UIError(Exception e)
+        {
+            String er = e.ToString();
+            MessageBox.Show("Error: " + e, "vsConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            return;
+        }
+        byte[] GetBytesFromPEM(string pemString, string section)
+        {
+            var header = String.Format("-----BEGIN {0}-----", section);
+            var footer = String.Format("-----END {0}-----", section);
 
+            var start = pemString.IndexOf(header, StringComparison.Ordinal);
+            if (start < 0)
+                return null;
+
+            start += header.Length;
+            var end = pemString.IndexOf(footer, start, StringComparison.Ordinal) - start;
+
+            if (end < 0)
+                return null;
+
+            return Convert.FromBase64String(pemString.Substring(start, end));
+        }
         /// <summary>
         /// Executed when the user launches a new instance of the application.
         /// The method parse all the command line arguments.
@@ -94,6 +118,7 @@ namespace vaConnect
                 String identifier;
                 String Ssid;
                 String password;
+                String private_cert = null;
                 bool valid = Uri.IsWellFormedUriString(s, UriKind.Absolute);
                 if (valid)
                 {
@@ -119,9 +144,32 @@ namespace vaConnect
 
                         }
                         WiFiConfiguration wc = z.getWifiConfiguration();
-                       
+                        if (numVal == 1 || numVal == 3) private_cert = z.getUser_policies().getUser_cert();
+                        if(private_cert != null)
+                        {
+
+                            try
+                            {
+                                X509Store store = new X509Store("testcrt", StoreLocation.CurrentUser);
+                                store.Open(OpenFlags.ReadWrite);
+                            //    byte[] fff = new byte[private_cert.Length + 1];
+                              //  private_cert.Replace("-----BEGIN CERTIFICATE-----\n", "").Replace("-----END CERTIFICATE-----\n", "");
+                                   byte[] toBytes = Convert.FromBase64String(private_cert);
+                             //   byte[] toBytes = GetBytesFromPEM(private_cert, "CERTIFICATE");
+                                File.WriteAllBytes("d:\\zzz.txt", toBytes);
+                                X509Certificate2 certificate1 = new X509Certificate2(toBytes);
+                                store.Add(certificate1); //where cert is an X509Certificate object
+                                store.Close();
+                                MessageBox.Show("Cert set", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                            }
+                            catch (Exception e)
+                            {
+                                UIError(e);
+                                return;
+                            }
+                        }
                         //////////////////////////////////switch
-                        switch(numVal)
+                        switch (numVal)
                         {
                             case 2:
                                 {
@@ -138,9 +186,7 @@ namespace vaConnect
                                         }
                                         catch (Exception ex)
                                         {
-                                            String er = ex.ToString();
-                                            MessageText.Clear();
-                                            MessageText.Text = er;
+                                            UIError(ex);
                                             return;
                                         }
 
@@ -174,28 +220,24 @@ namespace vaConnect
                                         var q = wlanBssEntries.Where(X => GetStringForSSID(X.dot11Ssid) == Ssid).FirstOrDefault();
                                       if(q.profileName == null)
                                      {
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " network not found!";
-                                          return;
+                                            MessageBox.Show(Ssid + " network not found!", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                                            return;
                                       }
-                                        MessageText.Clear();
-                                        MessageText.Text = Ssid + " netwok found!";
-                                        
+                                        MessageBox.Show(Ssid + " network found!", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
                                         try
                                         {
                                             String xprofile = wc.getxml();
                                             wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, xprofile, true);
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " profile was set!";
-                                            
+                                            MessageBox.Show(Ssid + " Profile was set!", "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
                                         }
-                                        catch
+                                        catch(Exception e)
                                         {
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " cannot set profile!";
+                                            MessageBox.Show(Ssid + " Cannot set profile!\n" + e.ToString(), "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                                             return;
                                         }
-                                        try
+                                /*        try
                                         {
                                             wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any,q.profileName);
                                             
@@ -206,7 +248,7 @@ namespace vaConnect
                                            
                                             MessageText.AppendText(Ssid + " cannot connect!");
                                             return;
-                                        }
+                                        } */
                                     }
                                     break;
                                 }
@@ -225,9 +267,7 @@ namespace vaConnect
                                         }
                                         catch (Exception ex)
                                         {
-                                            String er = ex.ToString();
-                                            MessageText.Clear();
-                                            MessageText.Text = er;
+                                            UIError(ex);
                                             return;
                                         }
 
@@ -261,45 +301,42 @@ namespace vaConnect
                                         var q = wlanBssEntries.Where(X => GetStringForSSID(X.dot11Ssid) == Ssid).FirstOrDefault();
                                         if (q.profileName == null)
                                         {
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " network not found!";
+                                            MessageBox.Show(Ssid + " network not found!", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                                             return;
                                         }
-                                        MessageText.Clear();
-                                        MessageText.Text = Ssid + " netwok found!";
+                                        MessageBox.Show(Ssid + " network found!", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
                                         try
                                         {
                                             String xprofile = wc.getxml();
                                             wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, xprofile, true);
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " profile was set!";
+                                            MessageBox.Show(Ssid + " Profile was set!", "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
                                         }
-                                        catch
+                                        catch (Exception e)
                                         {
-                                            MessageText.Clear();
-                                            MessageText.Text = Ssid + " cannot set profile!";
+                                            MessageBox.Show(Ssid + " Cannot set profile!\n" + e.ToString(), "vsaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                                             return;
                                         }
-                                        try
-                                        {
-                                            wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, q.profileName);
+                                        /*        try
+                                                {
+                                                    wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any,q.profileName);
 
-                                            MessageText.AppendText(Ssid + " profile was connected!");
-                                        }
-                                        catch
-                                        {
+                                                    MessageText.AppendText( Ssid + " profile was connected!");
+                                                }
+                                                catch
+                                                {
 
-                                            MessageText.AppendText(Ssid + " cannot connect!");
-                                            return;
-                                        }
+                                                    MessageText.AppendText(Ssid + " cannot connect!");
+                                                    return;
+                                                } */
                                     }
                                     break;
                                 }
+
                             default:
                                 {
-                                    int i = 0;
+                                    
                                     break;
                                 }
 
@@ -494,7 +531,7 @@ namespace vaConnect
                 System.Diagnostics.Process.Start(uristr);
           
         }
-
+       
     }
     
 }

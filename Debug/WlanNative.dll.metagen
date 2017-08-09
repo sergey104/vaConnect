@@ -1,0 +1,172 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly WlanNative, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class WlanNative.WlanProfile: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String ProfileName 'get ' : 
+    Boolean GroupPolicyProfile 'get ' : 
+    Boolean UserProfile 'get ' : 
+  Methods:
+    get_UserProfile(): PrivateScope, Public, HideBySig, SpecialName
+    get_GroupPolicyProfile(): PrivateScope, Public, HideBySig, SpecialName
+    get_ProfileName(): PrivateScope, Public, HideBySig, SpecialName
+Class WlanNative.WlanRadioState: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.ComponentModel.ExpandableObjectConverter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(_WLAN_PHY_RADIO_STATE*, _WLAN_INTERFACE_CAPABILITY*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String HardwareRadioState 'get ' : 
+    System.String SoftwareRadioState 'get ' : 
+    System.String RadioType 'get ' : 
+  Methods:
+    get_RadioType(): PrivateScope, Public, HideBySig, SpecialName
+    get_SoftwareRadioState(): PrivateScope, Public, HideBySig, SpecialName
+    get_HardwareRadioState(): PrivateScope, Public, HideBySig, SpecialName
+Class WlanNative.WlanCommonFuncs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.ComponentModel.ExpandableObjectConverter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    TranslateCipher(Int32): PrivateScope, Public, Static, HideBySig
+    TranslateAuth(Int32): PrivateScope, Public, Static, HideBySig
+    AddCipherAuthPairs(_WLAN_AUTH_CIPHER_PAIR_LIST*, Dictionary`2): PrivateScope, Public, Static, HideBySig
+Class WlanNative.WlanNetwork: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :WlanNative.WlanCommonFuncs
+    Void .ctor(_WLAN_AVAILABLE_NETWORK*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    System.String SignalStrength 'get ' : 
+    System.String DefaultCipherAlgorithm 'get ' : 
+    System.String DefaultAuthAlgorithm 'get ' : 
+    System.String NotConnectableReason 'get ' : 
+    System.String BSSType 'get ' : 
+    System.String SSID 'get ' : 
+    System.String Name 'get ' : 
+    Int32 NumberOfBSSIDs 'get ' : 
+    Boolean AdditionalPhysicalTypes 'get ' : 
+    Boolean SecurityEnabled 'get ' : 
+    Boolean Connectable 'get ' : 
+  Methods:
+    get_Connectable(): PrivateScope, Public, HideBySig, SpecialName
+    get_SecurityEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    get_AdditionalPhysicalTypes(): PrivateScope, Public, HideBySig, SpecialName
+    get_NumberOfBSSIDs(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_SSID(): PrivateScope, Public, HideBySig, SpecialName
+    get_BSSType(): PrivateScope, Public, HideBySig, SpecialName
+    get_NotConnectableReason(): PrivateScope, Public, HideBySig, SpecialName
+    get_DefaultAuthAlgorithm(): PrivateScope, Public, HideBySig, SpecialName
+    get_DefaultCipherAlgorithm(): PrivateScope, Public, HideBySig, SpecialName
+    get_SignalStrength(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class WlanNative.WlanAuthCipherProperty: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.ComponentModel.ExpandableObjectConverter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String[] CipherTypes 'get set' : 
+    System.String AuthType 'get set' : 
+  Methods:
+    get_AuthType(): PrivateScope, Public, HideBySig, SpecialName
+    set_AuthType(String): PrivateScope, Public, HideBySig, SpecialName
+    get_CipherTypes(): PrivateScope, Public, HideBySig, SpecialName
+    set_CipherTypes(String[]): PrivateScope, Public, HideBySig, SpecialName
+Class WlanNative.WlanInterface: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :WlanNative.WlanCommonFuncs
+    Void .ctor(_WLAN_INTERFACE_INFO*, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Boolean CertifiedSafeMode 'get ' : 
+    Boolean SupportedSafeMode 'get ' : 
+    Int32 RSSI 'get ' : 
+    Int32 CurrentOperationMode 'get ' : 
+    Boolean MediaStreamingMode 'get ' : 
+    System.String[] SupportedCountriesAndRegions 'get ' : 
+    WlanNative.WlanAuthCipherProperty[] AdHocCipherPairs 'get ' : 
+    WlanNative.WlanAuthCipherProperty[] InfrastructureCipherPairs 'get ' : 
+    Int32 ChannelNumber 'get ' : 
+    Boolean SecurityEnabled 'get ' : 
+    Boolean OneXEnabled 'get ' : 
+    System.String CurrentCipherAlgorithm 'get ' : 
+    System.String CurrentAuthAlgorithm 'get ' : 
+    System.String CurrentConnectedProfile 'get ' : 
+    System.String InterfaceState 'get ' : 
+    System.String BSSType 'get ' : 
+    WlanNative.WlanRadioState[] RadioStates 'get ' : 
+    Boolean BackgroundScanEnabled 'get ' : 
+    Boolean AutoConfigurationEnabled 'get ' : 
+    System.String Description 'get ' : 
+    System.ValueType InterfaceGuid 'get ' Guid IsBoxed : 
+  Methods:
+    ScanForNetworks(): PrivateScope, Public, HideBySig
+    GetAvailableNetworks(Boolean(HasFieldMarshal), Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SetProfileEAPXmlUserData(String, String, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    Connect(String): PrivateScope, Public, HideBySig
+    Connect(WlanProfile): PrivateScope, Public, HideBySig
+    Connect(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    GetProfiles(): PrivateScope, Public, HideBySig
+    GetProfile(WlanProfile): PrivateScope, Public, HideBySig
+    SetProfile(WlanProfile, String): PrivateScope, Public, HideBySig
+    Disconnect(): PrivateScope, Public, HideBySig
+    ShowEditProfileDialog(WlanProfile, IntPtr): PrivateScope, Public, HideBySig
+    get_InterfaceGuid(): PrivateScope, Public, HideBySig, SpecialName
+    get_Description(): PrivateScope, Public, HideBySig, SpecialName
+    get_AutoConfigurationEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    get_BackgroundScanEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    get_RadioStates(): PrivateScope, Public, HideBySig, SpecialName
+    get_BSSType(): PrivateScope, Public, HideBySig, SpecialName
+    get_InterfaceState(): PrivateScope, Public, HideBySig, SpecialName
+    get_CurrentConnectedProfile(): PrivateScope, Public, HideBySig, SpecialName
+    get_CurrentAuthAlgorithm(): PrivateScope, Public, HideBySig, SpecialName
+    get_CurrentCipherAlgorithm(): PrivateScope, Public, HideBySig, SpecialName
+    get_OneXEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    get_SecurityEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    get_ChannelNumber(): PrivateScope, Public, HideBySig, SpecialName
+    get_InfrastructureCipherPairs(): PrivateScope, Public, HideBySig, SpecialName
+    get_AdHocCipherPairs(): PrivateScope, Public, HideBySig, SpecialName
+    get_SupportedCountriesAndRegions(): PrivateScope, Public, HideBySig, SpecialName
+    get_MediaStreamingMode(): PrivateScope, Public, HideBySig, SpecialName
+    get_CurrentOperationMode(): PrivateScope, Public, HideBySig, SpecialName
+    get_RSSI(): PrivateScope, Public, HideBySig, SpecialName
+    get_SupportedSafeMode(): PrivateScope, Public, HideBySig, SpecialName
+    get_CertifiedSafeMode(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class WlanNative.WlanNative: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Events:
+    NotificationProc NotificationReceived: SpecialName
+  Methods:
+    add_NotificationReceived(NotificationProc): PrivateScope, Public, HideBySig, SpecialName
+    remove_NotificationReceived(NotificationProc): PrivateScope, Public, HideBySig, SpecialName
+    GetInterfaces(): PrivateScope, Public, HideBySig
+    RegisterForAllNotifications(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    RegisterForSpecificNotifications(UInt32, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    UnregisterForNotifications(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class WlanNative.WlanNative+NotificationCallbackProc: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(_L2_NOTIFICATION_DATA*): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(_L2_NOTIFICATION_DATA*, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class WlanNative.WlanNative+NotificationProc: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(ValueType Guid IsBoxed, String, Int32, Int32, IntPtr): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(ValueType Guid IsBoxed, String, Int32, Int32, IntPtr, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask

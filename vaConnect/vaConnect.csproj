@@ -88,7 +88,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Credentials.cs" />
     <Compile Include="eap\EapPEAP.cs" />
     <Compile Include="eap\EapTLS.cs" />
     <Compile Include="eap\EapTTLS.cs" />

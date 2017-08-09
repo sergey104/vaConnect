@@ -1,0 +1,12 @@
+﻿  Stdafx.cpp
+  AssemblyInfo.cpp
+  WlanNative.cpp
+c:\users\fil\documents\visual studio 2017\projects\vaconnect\wlannative\WlanNetwork.h(85): warning C4018: '<': signed/unsigned mismatch
+c:\users\fil\documents\visual studio 2017\projects\vaconnect\wlannative\WlanInterface.h(111): warning C4018: '<': signed/unsigned mismatch
+c:\users\fil\documents\visual studio 2017\projects\vaconnect\wlannative\WlanInterface.h(332): warning C4018: '<': signed/unsigned mismatch
+c:\users\fil\documents\visual studio 2017\projects\vaconnect\wlannative\WlanInterface.h(540): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  .NETFramework,Version=v4.6.1.AssemblyAttributes.cpp
+  AssemblyInfo.obj : /DEBUG:FASTLINK is not supported when managed code is present; restarting link with /DEBUG:FULL
+  WlanNative.vcxproj -> C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\Debug\WlanNative.dll
+  WlanNative.vcxproj -> C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\Debug\WlanNative.pdb (Partial PDB)
