@@ -18,6 +18,7 @@ using NativeWifi;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography;
+using System.Security.Permissions;
 
 
 namespace vaConnect
@@ -155,7 +156,7 @@ namespace vaConnect
 
                             try
                             {
-                                X509Store store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+                                X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
                                 store.Open(OpenFlags.ReadWrite);
                                 byte[] toBytes = Convert.FromBase64String(user_cert);
                                // File.WriteAllBytes("d:\\zzz.txt", toBytes);
@@ -175,7 +176,8 @@ namespace vaConnect
 
                             try
                             {
-                                X509Store store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+                                X509Store store = new X509Store(StoreName.TrustedPublisher, StoreLocation.LocalMachine);
+                                StorePermission sp = new StorePermission(StorePermissionFlags.AllFlags);
                                 store.Open(OpenFlags.ReadWrite);
                                 byte[] toBytes = Convert.FromBase64String(public_ca);
                                // File.WriteAllBytes("d:\\zzz1.txt", toBytes);

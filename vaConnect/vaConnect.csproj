@@ -9,7 +9,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>vaConnect</RootNamespace>
     <AssemblyName>vaConnect</AssemblyName>
-    <ApplicationIcon>help.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -54,10 +55,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>1C175F09A4522A644173D8FC1547F7CC8614A9C7</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>83255545FC1B32FF3E6E6116B99F0AB7D8D8209D</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>vaConnect_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>vaConnect_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -140,6 +141,7 @@
     <Compile Include="rest\model\WiFiProfile.cs" />
     <Compile Include="rest\OnboardingService.cs" />
     <Compile Include="SingleInstanceApplication.cs" />
+    <None Include="vaConnect_1_TemporaryKey.pfx" />
     <None Include="vaConnect_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
