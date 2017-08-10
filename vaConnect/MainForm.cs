@@ -148,7 +148,7 @@ namespace vaConnect
                         WiFiConfiguration wc = z.getWifiConfiguration();
                         if (numVal == 1 || numVal == 3)
                         {
-                            user_cert = z.getUser_policies().getUser_cert();
+                            user_cert = z.getUser_policies().getPrivate_cert();
                             public_ca = z.getUser_policies().getPublic_ca();
                         }
                         if(user_cert != null)
@@ -176,7 +176,7 @@ namespace vaConnect
 
                             try
                             {
-                                X509Store store = new X509Store(StoreName.TrustedPublisher, StoreLocation.LocalMachine);
+                                X509Store store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
                                 StorePermission sp = new StorePermission(StorePermissionFlags.AllFlags);
                                 store.Open(OpenFlags.ReadWrite);
                                 byte[] toBytes = Convert.FromBase64String(public_ca);
@@ -494,9 +494,7 @@ namespace vaConnect
                     wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
                 }
                 catch(Exception ex) {
-                    String er = ex.ToString();
-                    MessageText.Clear();
-                    MessageText.Text = er;
+                    UIError(ex);
                     return;
                 }
                 

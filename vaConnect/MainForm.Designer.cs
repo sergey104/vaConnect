@@ -41,7 +41,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.MessageText = new System.Windows.Forms.TextBox();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -163,17 +162,6 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // MessageText
-            // 
-            this.MessageText.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.MessageText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.MessageText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MessageText.Location = new System.Drawing.Point(407, 141);
-            this.MessageText.Multiline = true;
-            this.MessageText.Name = "MessageText";
-            this.MessageText.Size = new System.Drawing.Size(180, 177);
-            this.MessageText.TabIndex = 7;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,7 +169,6 @@
             this.BackgroundImage = global::vaConnect.Properties.Resources.main_white;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(608, 511);
-            this.Controls.Add(this.MessageText);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
@@ -215,7 +202,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripButton helpButton;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox MessageText;
     }
 }
 
