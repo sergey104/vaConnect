@@ -159,11 +159,14 @@ namespace vaConnect
                                 X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
                                 store.Open(OpenFlags.ReadWrite);
                                 byte[] toBytes = Convert.FromBase64String(user_cert);
-                               // File.WriteAllBytes("d:\\zzz.txt", toBytes);
+                               // byte[] toBytes = System.Text.Encoding.UTF8.GetBytes(user_cert);
+                                 File.WriteAllBytes("d:\\zzz.txt", toBytes);
                                 X509Certificate2 certificate1 = new X509Certificate2(toBytes);
+                              //  string private_key = certificate1.PrivateKey.ToString();
+                              //  File.WriteAllText("d:\\zzzpk.txt", private_key);
                                 store.Add(certificate1); //where cert is an X509Certificate object
                                 store.Close();
-                                MessageBox.Show("User certificate was set", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                                MessageBox.Show("Private certificate was set", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                             }
                             catch (Exception e)
                             {
@@ -179,11 +182,13 @@ namespace vaConnect
                                 X509Store store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
                                 StorePermission sp = new StorePermission(StorePermissionFlags.AllFlags);
                                 store.Open(OpenFlags.ReadWrite);
-                                byte[] toBytes = Convert.FromBase64String(public_ca);
-                               // File.WriteAllBytes("d:\\zzz1.txt", toBytes);
+                                 byte[] toBytes = Convert.FromBase64String(public_ca);
+                                
+                                 File.WriteAllBytes("d:\\zzz1.txt", toBytes);
                                 X509Certificate2 certificate1 = new X509Certificate2(toBytes);
                                 store.Add(certificate1); //where cert is an X509Certificate object
                                 store.Close();
+                                
                                 MessageBox.Show("CA certificate was set", "vaConnect", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                             }
                             catch (Exception e)

@@ -15,7 +15,6 @@ C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.application
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.exe
 C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.pdb
-C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.csprojResolveAssemblyReference.cache
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\vaConnect.exe.config
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\vaConnect.exe.manifest
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\bin\Debug\vaConnect.application
@@ -34,3 +33,4 @@ D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.exe
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.pdb
 D:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.csprojResolveAssemblyReference.cache
+C:\Users\Fil\Documents\Visual Studio 2017\Projects\vaConnect\vaConnect\obj\Debug\vaConnect.csprojResolveAssemblyReference.cache
