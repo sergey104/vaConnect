@@ -141,6 +141,7 @@
     <Compile Include="rest\model\WiFiProfile.cs" />
     <Compile Include="rest\OnboardingService.cs" />
     <Compile Include="SingleInstanceApplication.cs" />
+    <None Include="Readme.md" />
     <None Include="vaConnect_1_TemporaryKey.pfx" />
     <None Include="vaConnect_TemporaryKey.pfx" />
   </ItemGroup>
